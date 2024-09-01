@@ -2501,3 +2501,13 @@ body.mobile-nav-active #mobile-nav-toggle {
         padding: 9rem 0;
     }
 }
+
+
+/* social share css */
+#social-links ul {
+    border: none;
+    padding: 0;
+}
+#social-links ul li .social-button .fa-whatsapp{
+    font-size: 24px !important;
+}

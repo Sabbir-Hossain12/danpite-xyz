@@ -149,9 +149,14 @@
                                 value="{{ $websetting->instagram }}" id="floatingInput">
                         </div>
                         <div class="form-floating mb-3">
-                            <label for="floatingInput">Penterest</label>
+                            <label for="floatingInput">Pinterest</label>
                             <input type="text" class="form-control" name="pinterest"
                                 value="{{ $websetting->pinterest }}" id="floatingInput">
+                        </div>
+                        <div class="form-floating mb-3">
+                            <label for="floatingInput">Tiktok</label>
+                            <input type="text" class="form-control" name="tiktok"
+                                value="{{ $websetting->tiktok }}" id="floatingInput">
                         </div>
                         <div class="form-floating mb-3">
                             <label for="floatingInput">Linkedin</label>

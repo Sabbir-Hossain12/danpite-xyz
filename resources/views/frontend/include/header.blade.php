@@ -1,7 +1,4 @@
 
-
-
-
 <header id="header" style="z-index: 99999999">
     <div class="container-fluid">
 
@@ -40,7 +37,7 @@
                 </li>
                 <li id="limt">
                     <p class="m-0 p-0" style="color: #FAD105;font-size: 12px;">for appointment or query</p>
-                    <a href="" style="padding-left:0px;font-size: 20px;color: #FAD105;">{{ App\Models\Websetting::first()->phone_one }}</a>
+                    <a href="tel: {{ App\Models\Websetting::first()->phone_one }}" style="padding-left:0px;font-size: 20px;color: #FAD105;">{{ App\Models\Websetting::first()->phone_one }}</a>
                 </li>
             </ul>
         </nav>

@@ -115,21 +115,25 @@ Route::group(['prefix'=>'administrator','middleware' => ['auth.administrator:adm
 
 //    FAQ Images and Consult
     Route::resource('/faq-consult-images', FaqImageController::class)->names('administrator.faq_consult_images');
+
     //clients
     Route::resource('clients', ClientController::class,['names'=>'administrator.clients']);
     Route::get('client/get/data', [ClientController::class, 'clientdata'])->name('administrator.client.data');
     Route::post('client/{id}', [ClientController::class, 'update']);
     Route::put('client/status', [ClientController::class, 'statusupdate']);
+
     //projectcategories
     Route::resource('projectcategories', ProjectcategoryController::class,['names'=>'administrator.projectcategories']);
     Route::get('projectcategory/get/data', [ProjectcategoryController::class, 'projectcategorydata'])->name('administrator.projectcategory.data');
     Route::post('projectcategory/{id}', [ProjectcategoryController::class, 'update']);
     Route::put('projectcategory/status', [ProjectcategoryController::class, 'statusupdate']);
+
     //projects
     Route::resource('projects', ProjectController::class,['names'=>'administrator.projects']);
     Route::get('project/get/data', [ProjectController::class, 'projectdata'])->name('administrator.project.data');
     Route::post('project/{id}', [ProjectController::class, 'update']);
     Route::put('project/status', [ProjectController::class, 'statusupdate']);
+    
     //faqs
     Route::resource('faqs', FaqController::class,['names'=>'administrator.faqs']);
     Route::get('faq/get/data', [FaqController::class, 'faqdata'])->name('administrator.faq.data');

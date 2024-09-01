@@ -1,3 +1,5 @@
+
+
 @extends('frontend.master')
 
 @section('maincontent')
@@ -45,7 +47,7 @@
                         <p id="sliderhp">{{ $slider->slider_text }}</p>
                         <div class="d-flex align-items-center w-100" id="sliderbtngrp">
                             <a href="{{$slider->slider_btn_link}}" class="btn-get-started  scrollto" style="background:#FF7D44;color: white;font-weight: bold;  border: 2px solid #FF7D44;padding: 8px 6px 8px 6px;">{{$slider->slider_btn_name}}</a>
-                            <a href="{{$slider->slider_btn2_link}}" id="secondarySliderBtn" class="btn-get-started scrollto" style="background:none;color: #FF7D44;font-weight: bold;  border: 2px solid #FF7D44;padding: 6px 12px;">{{$slider->slider_btn2_name}}</a>
+                            <a href="{{ url("/$slider->slider_btn2_link") }}" id="secondarySliderBtn" class="btn-get-started scrollto" style="background:none;color: #FF7D44;font-weight: bold;  border: 2px solid #FF7D44;padding: 6px 12px;">{{$slider->slider_btn2_name}}</a>
                         </div>
                     </div>
 
@@ -55,10 +57,18 @@
                                 <h4 id="sliderh4">Book A Free Site Visit </h4>
                                 <form  name="form" action="{{route('administrator.appointments.store')}}"  method="POST">
                                     @csrf
+
                                     <div class="form-group">
                                         <input type="text" name="name" id="name" placeholder="Name" class="form-control mb-2" style="border-radius: 30px;" required />
                                         <input type="text" name="phone" id="phone" placeholder="Phone" class="form-control mb-2" style="border-radius: 30px;" />
-                                        <input type="text" name="email" id="email" placeholder="Email" class="form-control mb-2" style="border-radius: 30px;" />
+                                        {{-- <input type="text" name="email" id="email" placeholder="Email" class="form-control mb-2" style="border-radius: 30px;" /> --}}
+                                        <select name="service_cat" style="border-radius: 30px;" class="form-control mb-2" id="service_cat">
+                                                <option value="" disabled selected>Select Service</option>
+                                              @foreach ( App\Models\ServiceCategory::where('status', 1)->get() as $item )
+                                                <option value="{{ $item->id }}" >{{ $item->title }}</option>
+                                              @endforeach
+                                        </select>
+
                                         <select name="location" id="country" class="form-control mb-2" style="border-radius: 30px;" >
                                             <!--<option value="Bangladesh">Bangladesh</option>-->
                                             <option value="Singapore">Singapore</option>
@@ -330,7 +340,7 @@
         <div class="container">
             <div class="container" id="trusted">
                 <header class="section-header">
-                    <h3 class="pt-4">We are trusted by</h3>
+                    <h3 class="pt-4">We can supply and use any below brand of paints of client choice.</h3>
                 </header>
 
                 <div class="row mb-4 pb-4">
@@ -432,19 +442,21 @@
                                         <input type="text" name="name" id="name" placeholder="Name" class="form-control mb-2 mr-4" style="border-radius: 30px;" required>
                                         <input type="text" name="phone" id="phone" placeholder="Phone" class="form-control mb-2" style="border-radius: 30px;" required>
                                     </div>
-                                    <input type="text" name="email" id="email" placeholder="Email" class="form-control mb-2" style="border-radius: 30px;">
-                                    <div class="d-flex">
-                                        <select name="service" id="country" class="form-control mb-2 mr-4" style="border-radius: 30px;" required>
+                                    {{-- <input type="text" name="email" id="email" placeholder="Email" class="form-control mb-2" style="border-radius: 30px;"> --}}
+                                    {{-- <div class="d-flex"> --}}
+                                        <select name="service_cat" class="form-control mb-2 mr-4" style="border-radius: 30px;" required>
                                             <option disabled selected>Service</option>
-                                            @forelse ($services as $service)
-                                                <option value="{{ $service->solution_title }}">{{ $service->solution_title }}</option>
+                                            @forelse (App\Models\ServiceCategory::where('status', 1)->get() as $service)
+                                                <option value="{{ $service->id }}">{{ $service->title }}</option>
                                             @empty
                                             @endforelse
+
                                         </select>
                                         <select name="location" id="country" class="form-control mb-2" style="border-radius: 30px;">
-                                            <option value="Location">Location</option>
+                                            <option value="" disabled selected>Location</option>
+                                            <option value="singapore">Singapore</option>
                                         </select>
-                                    </div>
+                                    {{-- </div> --}}
                                     <div class="check mb-2">
                                         <input type="checkbox" name="notification" id="agree" class="mb-2" > Yes, I would like to receive important updates and notifications on WhatsApp
                                     </div>

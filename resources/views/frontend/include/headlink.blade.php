@@ -13,6 +13,7 @@
 
 <!-- Libraries CSS Files -->
 <link href="{{asset('public/frontend/lib/')}}/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 <link href="{{asset('public/frontend/lib/')}}/animate/animate.min.css" rel="stylesheet">
 <link href="{{asset('public/frontend/lib/')}}/ionicons/css/ionicons.min.css" rel="stylesheet">
 <link href="{{asset('public/frontend/lib/')}}/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
