@@ -13,16 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('appointments', function (Blueprint $table) {
+        Schema::create('blog_comments', function (Blueprint $table) {
             $table->id();
-            $table->text('side_img');
-            $table->string('name');
-            $table->string('email')->nullable();
-            $table->string('phone')->nullable();
-            $table->integer('service_cat')->nullable();
-            $table->string('location')->nullable();
-            $table->boolean('notification')->nullable();
-
+            $table->integer('user_id');
+            $table->integer('blog_id');
+            $table->text('comment');
+            $table->integer('status')->default(1)->comment('1=active, 0=inactive');
             $table->timestamps();
         });
     }
@@ -34,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('appointments');
+        Schema::dropIfExists('blog_comments');
     }
 };

@@ -1,3 +1,7 @@
+@php
+    $shareButton = Share::currentPage()->whatsapp();
+@endphp
+
 @extends('frontend.master')
 
 @section('maincontent')
@@ -54,7 +58,6 @@
     <!-- #intro -->
 
     <main id="main">
-
         <section id="services">
             <div class="container">
                 <div class="row" id="blogbox">
@@ -116,16 +119,16 @@
                                                 </li>
 
                                                 <li class="reaction_list">
-                                                    <i class='bx bx-share'></i>
+                                                    {{-- <i class='bx bx-share'></i> --}}
                                                     <span>Share</span>
+                                                    <span>{!! $shareButton !!}</span>
                                                 </li>
                                             </ul>
 
                                             <div class="comment_field">
-                                                <form class="create_comment" method="POST">
+                                                <form class="create_comment">
                                                     @csrf
 
-                                                    <input type="text" name="user_id" value="{{ $blog->id }}" hidden>
                                                     <input type="text" name="blog_id" value="{{ $blog->id }}" hidden>
 
                                                     <textarea name="comment" id="comment" class="comment_box_field" placeholder="Comment Here....."></textarea>
@@ -137,7 +140,6 @@
                                                     <button type="submit" class="btn_comment_send"><i class='bx bxs-send'></i></button>
                                                 </form>
                                             </div>
-
                                         </div>
 
                                         {{-- Part-2 --}}
@@ -146,7 +148,7 @@
                                                 @foreach ($blogComments as $blogComment)
                                                     @if ( $blogComment->blog_ids == $blog->id )
                                                             <div class="comment_content">
-                                                                <img src="{{ asset('public/asset/images/avatar.png') }}" alt="">
+                                                                <img src="{{ asset('public/group3.png') }}" alt="">
 
                                                                 <div class="comment_description">
                                                                     <h3>{{ ucwords($blogComment->name) }}</h3>
@@ -174,6 +176,64 @@
 
 
 @section('subjs')
+
+<script>
+
+    let comment_line = document.querySelectorAll('.comment_line');
+    let comment_field = document.querySelectorAll('.comment_field');
+    let remove_comment = document.querySelectorAll('.remove_comment');
+
+    comment_line.forEach((item, index) =>{
+        item.addEventListener("click", function(){
+            //  console.log(index);
+            comment_field[index].classList.toggle('comment_active');
+        })
+    })
+
+    remove_comment.forEach((items, index) =>{
+        items.addEventListener("click", function(){
+            //  console.log(index);
+            comment_field[index].classList.remove('comment_active');
+        })
+    })
+
+
+</script>
+
+<script>
+      $(document).ready(function(){
+         $('.create_comment').submit(function(e){
+            e.preventDefault();
+
+            var formData = new FormData(this);
+            // console.log(id);
+
+            $.ajax({
+                type: 'POST',
+                url: "{{ route('blog.comments') }}",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(res){
+                    console.log(res);
+                    if( res.status === true ){
+                        window.location.href = "{{ url('daily-blogs') }}"
+                    }
+                    else{
+                        window.location.href = "{{ route('administrator.login') }}"
+                    }
+                },
+                error: function(error){
+                    console.log(error.message);
+                }
+            })
+         })
+      })
+</script>
+
 
 {{-- <script>
       $(document).ready(function(){

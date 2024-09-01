@@ -13,15 +13,22 @@
                     </div>
                     <div class="d-flex">
                         <i class="fa fa-phone" style="font-size: 26px;color:#187C94"></i>
-                        <p style="text-align: left; padding-left: 16px;margin-bottom: 16px;">{{ $setting->phone_one }}</p>
+                        <p style="text-align: left; padding-left: 16px;margin-bottom: 16px;">
+                            <a href="tel: {{ $setting->phone_one }}" class="text-white">{{ $setting->phone_one }}</a>
+                        </p>
                     </div>
                     <div class="d-flex">
                         <i class="fa fa-phone" style="font-size: 26px;color:#187C94"></i>
-                        <p style="text-align: left; padding-left: 16px;margin-bottom: 16px;">{{ $setting->phone_two }}</p>
+                        <p style="text-align: left; padding-left: 16px;margin-bottom: 16px;">
+                            <a href="tel: {{ $setting->phone_one }}" class="text-white">{{ $setting->phone_two }}</a>
+                        </p>
                     </div>
                     <div class="d-flex">
                         <i class="fa fa-envelope" style="font-size: 20px;color:#187C94"></i>
-                        <p style="text-align: left; padding-left: 16px;margin-bottom: 16px;">{{ $setting->email }}</p>
+                        <p style="text-align: left; padding-left: 16px;margin-bottom: 16px;">
+                            <a href="mailto: {{ $setting->email }}" class="text-white">{{ $setting->email }}</a>
+                            {{-- {{ $setting->email }} --}}
+                        </p>
                     </div>
                 </div>
 
@@ -45,11 +52,13 @@
                         <a href="#featured-services" class="btn-get-started scrollto" style="border-radius: 45px;background:#FF7D44;color: white;font-weight: bold;  border: 2px solid #FF7D44;padding: 6px 12px;">Subscribe</a>
                     </div>
                     <div class="social-links">
-                        <a href="{{ $setting->twitter }}" class="twitter"><i class="fa fa-twitter"></i></a>
-                        <a href="{{ $setting->facebook }}" class="facebook"><i class="fa fa-facebook"></i></a>
-                        <a href="{{ $setting->instagram }}" class="instagram"><i class="fa fa-instagram"></i></a>
-                        <a href="{{ $setting->google }}" class="google-plus"><i class="fa fa-google-plus"></i></a>
-                        <a href="{{ $setting->linkedin }}" class="linkedin"><i class="fa fa-linkedin"></i></a>
+                        <a href="{{ $setting->pinterest }}" class="twitter"><i class="fab fa-pinterest"></i></a>
+                        <a href="{{ $setting->tiktok }}" class="twitter"><i class="bx bxl-tiktok"></i></a>
+                        <a href="{{ $setting->twitter }}" class="twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="{{ $setting->facebook }}" class="facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="{{ $setting->instagram }}" class="instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="{{ $setting->google }}" class="google-plus"><i class="fab fa-google-plus"></i></a>
+                        <a href="{{ $setting->linkedin }}" class="linkedin"><i class="fab fa-linkedin"></i></a>
                     </div>
                 </div>
             </div>

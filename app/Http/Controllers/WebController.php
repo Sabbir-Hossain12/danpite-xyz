@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\FronteBlog;
+use App\Models\BlogComment;
 use App\Models\LikeSegment;
 use App\Models\Service;
 use App\Models\ServiceCategory;
@@ -138,12 +138,12 @@ class WebController extends Controller
     {
         $blogSegments = LikeSegment::latest()->get();
 
-        $blogComments = DB::table('fronte_blogs')
-                    ->join('users', 'users.id', '=', 'fronte_blogs.user_id')
-                    ->join('blogs', 'blogs.id', '=', 'fronte_blogs.blog_id')
-                    ->select('users.name', 'fronte_blogs.status' , 'fronte_blogs.comment', 'fronte_blogs.id', 'fronte_blogs.created_at', 'blogs.id as blog_ids')
-                    ->where('fronte_blogs.status', 1)
-                    ->orderBy('fronte_blogs.id','desc')
+        $blogComments = DB::table('blog_comments')
+                    ->join('users', 'users.id', '=', 'blog_comments.user_id')
+                    ->join('blogs', 'blogs.id', '=', 'blog_comments.blog_id')
+                    ->select('users.name', 'blog_comments.status' , 'blog_comments.comment', 'blog_comments.id', 'blog_comments.created_at', 'blogs.id as blog_ids')
+                    ->where('blog_comments.status', 1)
+                    ->orderBy('blog_comments.id','desc')
                     ->get();
         return view('frontend.content.pages.blogs',  compact('blogComments', 'blogSegments'));
     }
@@ -152,16 +152,18 @@ class WebController extends Controller
     {
         // dd($request->all());
         if( Auth::check() ){
-            $frontBlog              = new FronteBlog();
+            $blogComment                = new BlogComment();
 
-            $frontBlog->user_id     = Auth::user()->id;
-            $frontBlog->blog_id     = $request->blog_id;
-            $frontBlog->comment     = $request->comment;
-            $frontBlog->status      = 1;
+            $blogComment->user_id       = Auth::user()->id;
+            $blogComment->blog_id       = $request->blog_id;
+            $blogComment->comment       = $request->comment;
+            $blogComment->status        = 1;
 
-            $frontBlog->save();
+            // dd($blogComment);
 
-            return response()->json(['status'=> true, 'data' => $frontBlog], 200);
+            $blogComment->save();
+
+            return response()->json(['status'=> true, 'data' => $blogComment], 200);
         }
         else{
             return response()->json(['status'=> false]);

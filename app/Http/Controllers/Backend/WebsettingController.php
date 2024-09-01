@@ -88,41 +88,55 @@ class WebsettingController extends Controller
         }else{
             $webinfo->facebook=null;
         }
+
         if(isset($request->twitter)){
             $webinfo->twitter=$request->twitter;
         }else{
             $webinfo->twitter=null;
         }
+
         if(isset($request->google)){
             $webinfo->google=$request->google;
         }else{
             $webinfo->google=null;
         }
+
         if(isset($request->whatsapp)){
             $webinfo->whatsapp=$request->whatsapp;
         }else{
             $webinfo->whatsapp=null;
         }
+
         if(isset($request->instagram)){
             $webinfo->instagram=$request->instagram;
         }else{
             $webinfo->instagram=null;
         }
+
         if(isset($request->pinterest)){
             $webinfo->pinterest=$request->pinterest;
         }else{
             $webinfo->pinterest=null;
         }
+
+        if(isset($request->tiktok)){
+            $webinfo->tiktok  =  $request->tiktok;
+        }else{
+            $webinfo->tiktok  =  null;
+        }
+
         if(isset($request->linkedin)){
             $webinfo->linkedin=$request->linkedin;
         }else{
             $webinfo->linkedin=null;
         }
+
         if(isset($request->youtube)){
             $webinfo->youtube=$request->youtube;
         }else{
             $webinfo->youtube=null;
         }
+
         $webinfo->update();
         return redirect()->back()->with('message','Social Links updated successfully');
     }

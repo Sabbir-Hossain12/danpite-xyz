@@ -30,6 +30,7 @@ return new class extends Migration
             $table->string('whatsapp')->nullable();
             $table->string('instagram')->nullable();
             $table->string('pinterest')->nullable();
+            $table->string('tiktok')->nullable();
             $table->string('linkedin')->nullable();
             $table->string('youtube')->nullable();
             $table->text('meta_title')->nullable();
