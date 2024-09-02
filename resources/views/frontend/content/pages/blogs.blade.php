@@ -55,7 +55,7 @@
             </div>
         </div>
     </section>
-    <!-- #intro -->
+    <!-- #intros -->
 
     <main id="main">
         <section id="services">
