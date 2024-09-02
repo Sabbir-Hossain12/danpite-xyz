@@ -43,15 +43,16 @@
                     </ul>
                 </div>
 
-                <div class="col-lg-4 col-md-6 footer-newsletter">
-                    <h4>Newsletter</h4>
-                    <div class="mb-4 w-100">
-                        <div class="form-group">
-                            <input type="text" name="" class="form-control" placeholder="Email Address" id="" style="border-radius:40px;">
-                        </div>
-                        <a href="#featured-services" class="btn-get-started scrollto" style="border-radius: 45px;background:#FF7D44;color: white;font-weight: bold;  border: 2px solid #FF7D44;padding: 6px 12px;">Subscribe</a>
-                    </div>
-                    <div class="social-links">
+                <div class="col-lg-4 col-md-6 footer-links">
+                    <h4>Service</h4>
+
+                    <ul>
+                        @foreach (App\Models\ServiceCategory::where('status', 1)->limit(5)->get() as $serviceCategory)
+                            <li><i class="ion-ios-arrow-right"></i> <a href="{{ route('services.category', $serviceCategory->slug) }}">{{ $serviceCategory->title }}</a></li>
+                        @endforeach
+                    </ul>
+
+                    <div class="social-links mt-4">
                         <a href="{{ $setting->pinterest }}" class="twitter"><i class="fab fa-pinterest"></i></a>
                         <a href="{{ $setting->tiktok }}" class="twitter"><i class="bx bxl-tiktok"></i></a>
                         <a href="{{ $setting->twitter }}" class="twitter"><i class="fab fa-twitter"></i></a>
@@ -60,6 +61,13 @@
                         <a href="{{ $setting->google }}" class="google-plus"><i class="fab fa-google-plus"></i></a>
                         <a href="{{ $setting->linkedin }}" class="linkedin"><i class="fab fa-linkedin"></i></a>
                     </div>
+                    {{-- <div class="mb-4 w-100">
+                        <div class="form-group">
+                            <input type="text" name="" class="form-control" placeholder="Email Address" id="" style="border-radius:40px;">
+                        </div>
+                        <a href="#featured-services" class="btn-get-started scrollto" style="border-radius: 45px;background:#FF7D44;color: white;font-weight: bold;  border: 2px solid #FF7D44;padding: 6px 12px;">Subscribe</a>
+                    </div> --}}
+
                 </div>
             </div>
         </div>
