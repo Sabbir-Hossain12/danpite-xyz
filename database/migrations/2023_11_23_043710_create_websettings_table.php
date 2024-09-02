@@ -24,6 +24,7 @@ return new class extends Migration
             $table->text('facebook_pixel')->nullable();
             $table->text('google_analytics')->nullable();
             $table->text('chat_box')->nullable();
+            $table->text('google_map')->nullable();
             $table->string('facebook')->nullable();
             $table->string('twitter')->nullable();
             $table->string('google')->nullable();

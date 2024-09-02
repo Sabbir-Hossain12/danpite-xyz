@@ -33,7 +33,7 @@
 
     @forelse ( $sliders as $slider )
         <section id="intro" class="carousel-background" style="background-image: url('{{ asset( $slider->slider_image ) }}')">
-            <div class="container">
+            <div class="container" id="featured_services">
                 <div class="row align-items-center">
                     <div class="col-md-8">
                         <h1 id="sliderh1">Cost and Pricing</h1>
@@ -95,9 +95,8 @@
                         <p style="text-align: left;color: #000;">
                             {{$price_info->pricing_info_description}}
                         </p>
-                        <a href="#featured-services" class="btn-get-started scrollto"
-                           style="background:#FF7D44;color: white;font-weight: bold;  border: 2px solid #FF7D44;padding: 6px 12px;border-radius:30px;">Contact
-                            For a Service</a>
+                        <a href="#featured_services" class="btn-get-started scrollto"
+                           style="background:#FF7D44;color: white;font-weight: bold;  border: 2px solid #FF7D44;padding: 6px 12px;border-radius:30px;">Contact For a Service</a>
                     </div>
                 </div>
 
