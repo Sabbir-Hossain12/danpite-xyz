@@ -97,6 +97,15 @@
                                 style="height: 100px;">{{ $websetting->news_text }}</textarea>
                         </div>
                     </div>
+
+                    <div class="col-lg-6">
+                        <div class="form-floating mb-3">
+                            <label for="google_map">Google Map</label>
+                            <textarea class="form-control" placeholder="Youtube Link Here....." name="google_map" id="google_map"
+                                style="height: 100px;">{{ $websetting->google_map }}</textarea>
+                        </div>
+                    </div>
+
                     <div class="col-lg-6">
                         <div class="form-floating mb-3">
                             <label for="floatingTextarea">Chatbox Script</label>

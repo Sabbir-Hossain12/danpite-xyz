@@ -172,36 +172,32 @@ class WebController extends Controller
 
     public function blogLike(Request $request)
     {
-        // dd($request->blog_id);
-        if( Auth::check() ){
-            $existingLike = LikeSegment::where('blog_id', $request->blog_id)->first();
+        // dd($request->all());
 
-            if( !empty( $existingLike ) ){
-                if( $existingLike->segment == "like" ){
-                    $existingLike->segment      = "dislike";
-                }
-                else if( $existingLike->segment == "dislike" ){
-                    $existingLike->segment      = "like";
-                }
-                $existingLike->save();
+        if (Auth::check()) {
+            $likeSegment = LikeSegment::where('user_id', Auth::user()->id)
+                    ->where('blog_id', $request->blog_id)
+                    ->where('segment', 'like')
+                    ->first();
 
-                return response()->json(['status'=> true], 200);
+            if ( $likeSegment ) {
+                // If already liked, delete the like
+                $likeSegment->delete();
+                return response()->json(['status' => true, 'action' => 'unliked']);
+            } else {
+                // If not liked, add the like
+                $newLikeSegment = new LikeSegment();
+
+                $newLikeSegment->user_id = Auth::user()->id;
+                $newLikeSegment->blog_id = $request->blog_id;
+                $newLikeSegment->segment = "like";
+                $newLikeSegment->status = 1;
+                $newLikeSegment->save();
+
+                return response()->json(['status' => true, 'action' => 'liked']);
             }
-            else{
-                $likeSegment              = new LikeSegment();
-
-                $likeSegment->user_id      = Auth::user()->id;
-                $likeSegment->blog_id      = $request->blog_id;
-                $likeSegment->segment      = "like";
-                $likeSegment->status       = 1;
-
-                $likeSegment->save();
-
-                return response()->json(['status'=> true, 'data' => $likeSegment], 200);
-            }
-        }
-        else{
-            return response()->json(['status'=> false]);
+        } else {
+            return response()->json(['status' => false]);
         }
     }
 }

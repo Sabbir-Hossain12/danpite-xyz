@@ -40,7 +40,7 @@
 
     @forelse ( $sliders as $slider )
         <section id="intro" class="carousel-background" style="background-image: url('{{ asset( $slider->slider_image ) }}')">
-            <div class="container">
+            <div class="container" id="appointment">
                 <div class="row align-items-center">
                     <div class="col-md-8">
                         <h1 id="sliderh1">{{ $slider->slider_small_title }}</h1>
@@ -102,7 +102,7 @@
 
             <div class="row mt-4 pt-lg-4">
                 @forelse ($solutions as $solution)
-                    <div class="col-lg-4 col-md-6 box wow bounceInUp text-left" data-wow-duration="1.4s" style="background-image: url('{{asset($solution->solution_bg_image)}}');background-size: 90%;    background-repeat: no-repeat;background-position-y: 100%;background-position-x: -0%;">
+                    <div class="col-lg-4 col-md-6 box wow bounceInUp text-left" data-wow-duration="1.4s" style="background-image: url('{{asset($solution->solution_bg_image)}}');background-size: 90%; background-repeat: no-repeat;background-position-y: 100%;background-position-x: -0%;">
                         <img src="{{asset($solution->solution_image)}}" alt="" id="solimg">
                         <h4 class="title"><a href="">{{ $solution->solution_title }}</a></h4>
                         <p class="description">{{ $solution->solution_text }}</p>
@@ -212,7 +212,7 @@
                             <div class="col-lg-12 col-12" style="    padding: 75px;">
                                 <h2 style="color: white;font-weight: bold;padding-bottom: 12px;">Need the Best <span>Painting</span> or <br>
                                     <span>Water Proofing</span> Service?</h2>
-                                    <a href="" class="btn btn-primary" style="background:#FF7D44;color:white;border-radius:30px;padding:15px 52px 15px 52px">Just Make a Call to Us</a>
+                                    <a href="https://wa.me/+6586508260" class="btn btn-primary" style="background:#FF7D44;color:white;border-radius:30px;padding:15px 52px 15px 52px">Just Make a Call to Us</a>
                             </div>
                         </div>
                     </div>
@@ -265,13 +265,12 @@
                         </div>
                     </div>
                 </div>
-       {{--                @endforeach--}}
+       {{-- @endforeach--}}
             </div>
 
         </div>
     </section>
     @endif
-
 
     {{--  Faclities  --}}
     <img src="{{ asset($facility_images->facilty_bg_img)}}" alt="" id="specialimg">
@@ -461,7 +460,7 @@
                                         <input type="checkbox" name="notification" id="agree" class="mb-2" > Yes, I would like to receive important updates and notifications on WhatsApp
                                     </div>
                                     <br>
-                                    <button type="submit" class="btn btn-get-started scrollto" style="border-radius: 45px;background:#FF7D44;color: white;font-weight: bold;  border: 2px solid #FF7D44;padding: 6px 12px;">Book an Appointment</button>
+                                    <a href="#appointment" class="btn btn-get-started scrollto" style="border-radius: 45px;background:#FF7D44;color: white;font-weight: bold;  border: 2px solid #FF7D44;padding: 6px 12px;">Book an Appointment</a>
                                 </div>
                             </form>
                         </div>

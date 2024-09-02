@@ -20,7 +20,7 @@
                     <div class="d-flex">
                         <i class="fa fa-phone" style="font-size: 26px;color:#187C94"></i>
                         <p style="text-align: left; padding-left: 16px;margin-bottom: 16px;">
-                            <a href="tel: {{ $setting->phone_one }}" class="text-white">{{ $setting->phone_two }}</a>
+                            <a href="tel: {{ $setting->phone_two }}" class="text-white">{{ $setting->phone_two }}</a>
                         </p>
                     </div>
                     <div class="d-flex">
@@ -36,7 +36,7 @@
                     <h4>Useful Links</h4>
                     <ul>
                         <li><i class="ion-ios-arrow-right"></i> <a href="{{ url('/') }}">Home</a></li>
-                        <li><i class="ion-ios-arrow-right"></i> <a href="{{ url('all-services') }}">Services</a></li>
+                        {{-- <li><i class="ion-ios-arrow-right"></i> <a href="{{ url('all-services') }}">Services</a></li> --}}
                         <li><i class="ion-ios-arrow-right"></i> <a href="{{ url('contact-us') }}">Contact</a></li>
                         <li><i class="ion-ios-arrow-right"></i> <a href="{{ url('priceing') }}">Pricing List</a></li>
                         <li><i class="ion-ios-arrow-right"></i> <a href="{{ url('daily-blogs') }}">Blogs</a></li>

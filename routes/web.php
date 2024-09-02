@@ -40,9 +40,6 @@ Route::post('/blogs/like', [WebController::class, 'blogLike'])->name('blog.like'
 
 Route::post('support-service', [SupportServiceController::class, 'SupportService'])->name('support.service');
 
-// Blog
-// Route::get('/blog', [BlogController::class, 'index']);
-// Route::get('/blogs/{slug}', [BlogController::class, 'blogDetails'])->name('single.blog');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
