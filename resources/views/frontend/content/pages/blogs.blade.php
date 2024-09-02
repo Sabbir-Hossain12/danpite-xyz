@@ -87,30 +87,28 @@
                                         <div class="reaction_section">
                                             <ul>
                                                 <li>
-                                                    <form method="POST" class="like_segment">
-                                                        @csrf
+                                                    @if ( Auth::check() )
+                                                            <form method="POST" class="like_segment mb-0">
+                                                                @csrf
 
-                                                        <input type="number" name="blog_id" value="{{ $blog->id }}" hidden>
+                                                                @php
+                                                                    $segment = App\Models\LikeSegment::where('user_id', Auth::user()->id)->where('blog_id', $blog->id)->where('segment', 'like')->first();
+                                                                @endphp
 
-                                                        <button type="submit" class="like_btn">
-                                                            <span class="total_like">{{ $blogSegments->where('blog_id', $blog->id)->where('segment', 'like')->count() }}</span>
+                                                                <input type="number" name="blog_id" value="{{ $blog->id }}" hidden>
 
-                                                           @if ( Auth::check() )
-                                                                @if ( !empty(App\Models\LikeSegment::where('user_id', Auth::user()->id)->where('segment', 'like')->where('blog_id', $blog->id)->first()))
-                                                                    <i class='bx bx-like text-primary'></i>
-                                                                    <span class="like_text text-primary" style="font-weight: 700">Like</span>
-                                                                @else
-                                                                    <i class='bx bx-like'></i>
-                                                                    <span class="like_text">Like</span>
-                                                                @endif
-
-                                                            @else
-                                                                <i class='bx bx-like'></i>
-                                                                <span class="like_text">Like</span>
-                                                           @endif
-
-                                                        </button>
-                                                    </form>
+                                                                <button type="submit" class="like_btn">
+                                                                    <span class="total_like mr-2">{{ $blogSegments->where('blog_id', $blog->id)->where('segment', 'like')->count() }}</span>
+                                                                        <i class='bx bx-like @if(!empty($segment)) text-primary @endif'></i>
+                                                                        <span class="like_text @if(!empty($segment)) text-primary @endif" style="font-weight: 700">Like</span>
+                                                                </button>
+                                                            </form>
+                                                    @else
+                                                        <a href="{{ url('/login') }}" class="like_btn">
+                                                            <i class='bx bx-like'></i>
+                                                            <span class="like_text">Like</span>
+                                                        </a>
+                                                    @endif
                                                 </li>
 
                                                 <li class="reaction_list comment_line">
@@ -232,33 +230,50 @@
             })
          })
       })
+
+        $(document).ready(function(){
+            $('.like_segment').on('submit', function(e){
+                e.preventDefault();
+
+                var form = $(this);
+                var formData = new FormData(this);
+
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ route('blog.like') }}",
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(res){
+                        if (res.status == true) {
+                            if (res.action == 'liked') {
+                                form.find('.like_btn i').addClass('text-primary');
+                                form.find('.like_btn .like_text').addClass('text-primary').css('font-weight', '700');
+                            } else if (res.action == 'unliked') {
+                                form.find('.like_btn i').removeClass('text-primary');
+                                form.find('.like_btn .like_text').removeClass('text-primary').css('font-weight', 'normal');
+                            }
+
+                            // Update the like count (this is optional based on your needs)
+                            let totalLikes = parseInt(form.find('.total_like').text());
+                            if (res.action == 'liked') {
+                                form.find('.total_like').text(totalLikes + 1);
+                            } else if (res.action == 'unliked') {
+                                form.find('.total_like').text(totalLikes - 1);
+                            }
+                        } else {
+                            window.location.href= "{{ url('/login') }}";
+                        }
+                    },
+                    error: function(error){
+                        console.log('error');
+                    }
+                });
+            });
+        });
 </script>
-
-
-{{-- <script>
-      $(document).ready(function(){
-         $('.like_segment').on('click', function(){
-            var id = $(this).attr('data-id');
-            // console.log(id);
-
-            $.ajax({
-                type: 'POST',
-                url: "{{ route('blog.like') }}",
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                data: { id: id },
-                processData: false,
-                contentType: false,
-                success: function(res){
-                    console.log(res);
-                },
-                error: function(error){
-                    console.log('error');
-                }
-            })
-         })
-      })
-</script> --}}
 
 @endsection

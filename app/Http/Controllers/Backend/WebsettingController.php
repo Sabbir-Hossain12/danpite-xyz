@@ -35,7 +35,6 @@ class WebsettingController extends Controller
         $webinfo->phone_two=$request->phone_two;
         $webinfo->address=$request->address;
         if($request->logo){
-
             $logo = $request->file('logo');
             $name = time() . "_" . $logo->getClientOriginalName();
             $uploadPath = ('public/images/');
@@ -69,6 +68,11 @@ class WebsettingController extends Controller
             $webinfo->chat_box=$request->chat_box;
         }else{
             $webinfo->chat_box='';
+        }
+        if($request->google_map){
+            $webinfo->google_map = $request->google_map;
+        }else{
+            $webinfo->google_map='';
         }
         if($request->news_text){
             $webinfo->news_text=$request->news_text;

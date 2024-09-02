@@ -59,35 +59,38 @@
     <section id="services">
         <div class="container">
 
-            <div class="row mt-4 pt-lg-4">
+            <div class="row align-items-center mt-4 pt-lg-4">
 
                 <div class="col-lg-6 col-md-12 box wow bounceInUp text-center" data-wow-duration="1.4s">
                     <h3><b>Head Office Dhaka, Bangladesh</b></h3>
                     <div class="d-flex">
                         <i class="fa fa-home" style="font-size: 26px;line-height: 45px;color:#187C94"></i>
-                        <p style="text-align: left; padding-left: 16px;margin-bottom: 16px;"> 4th Floor, Ma Amena Plaza, Road-2, Mirpur 10, Dhaka,<br>Bangladesh, 1216</p>
+                        <p style="text-align: left; padding-left: 16px;margin-bottom: 16px;"> {!! $setting->address !!}</p>
                     </div>
                     <div class="d-flex">
                         <i class="fa fa-phone" style="font-size: 26px;color:#187C94"></i>
-                        <p style="text-align: left; padding-left: 16px;margin-bottom: 16px;">+8801647368141</p>
+                        <p style="text-align: left; padding-left: 16px;margin-bottom: 16px;">
+                            <a href="tel: {{ $setting->phone_one }}">{{ $setting->phone_one }}</a>
+                        </p>
                     </div>
                     <div class="d-flex">
                         <i class="fa fa-phone" style="font-size: 26px;color:#187C94"></i>
-                        <p style="text-align: left; padding-left: 16px;margin-bottom: 16px;">+8801604417652</p>
+                        <p style="text-align: left; padding-left: 16px;margin-bottom: 16px;">
+                            <a href="tel: {{ $setting->phone_two }}">{{ $setting->phone_two }}</a>
+                        </p>
                     </div>
                     <div class="d-flex">
                         <i class="fa fa-envelope" style="font-size: 20px;color:#187C94"></i>
-                        <p style="text-align: left; padding-left: 16px;margin-bottom: 16px;">md.muraiem@gmail.com</p>
-                    </div>
-                    <div class="d-flex">
-                        <i class="fa fa-envelope" style="font-size: 20px;color:#187C94"></i>
-                        <p style="text-align: left; padding-left: 16px;margin-bottom: 16px;">md.muraiem036@gmail.com</p>
+                        <p style="text-align: left; padding-left: 16px;margin-bottom: 16px;">
+                            <a href="mailto: {{ $setting->email }}">{{ $setting->email }}</a>
+                        </p>
                     </div>
                 </div>
 
                 <div class="col-lg-6 col-md-12 box wow bounceInUp text-center" data-wow-duration="1.4s">
                     <div class="mapouter">
-                        <div class="gmap_canvas"><iframe class="gmap_iframe" width="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=600&amp;height=400&amp;hl=en&amp;q=Danpite Builders Pte ltd.&amp;t=&amp;z=12&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+                        <div class="gmap_canvas">
+                            {!! $setting->google_map !!}
                             <a href="https://connectionsgame.org/">Connections Unlimited</a>
                         </div>
                         <style>
@@ -114,8 +117,8 @@
             </div>
 
             <br>
-            <br>
-            <div class="row" id="contactbox">
+
+            {{-- <div class="row" id="contactbox">
                 <div class="row mt-4 pt-lg-4">
                     <div class="col-6 col-lg-4 mb-3">
                         <div class="card">
@@ -226,7 +229,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </section>
 

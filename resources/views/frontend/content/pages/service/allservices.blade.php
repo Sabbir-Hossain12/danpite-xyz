@@ -1,3 +1,8 @@
+@php
+    $services = App\Models\Service::where('category_id', $ServiceCategory->id)->where('status', 1)->get();
+
+@endphp
+
 @extends('frontend.master')
 
 @section('maincontent')
@@ -45,10 +50,18 @@
                                 <h4 id="sliderh4">Book A Free Site Visit </h4>
                                 <form  name="form" action="{{route('administrator.appointments.store')}}"  method="POST">
                                     @csrf
+
                                     <div class="form-group">
                                         <input type="text" name="name" id="name" placeholder="Name" class="form-control mb-2" style="border-radius: 30px;" required />
                                         <input type="text" name="phone" id="phone" placeholder="Phone" class="form-control mb-2" style="border-radius: 30px;" />
-                                        <input type="text" name="email" id="email" placeholder="Email" class="form-control mb-2" style="border-radius: 30px;" />
+                                        {{-- <input type="text" name="email" id="email" placeholder="Email" class="form-control mb-2" style="border-radius: 30px;" /> --}}
+                                        <select name="service_cat" style="border-radius: 30px;" class="form-control mb-2" id="service_cat">
+                                                <option value="" disabled selected>Select Service</option>
+                                              @foreach ( App\Models\ServiceCategory::where('status', 1)->get() as $item )
+                                                <option value="{{ $item->id }}" @if( $item->id == $ServiceCategory->id ) selected @endif>{{ $item->title }}</option>
+                                              @endforeach
+                                        </select>
+
                                         <select name="location" id="country" class="form-control mb-2" style="border-radius: 30px;" >
                                             <!--<option value="Bangladesh">Bangladesh</option>-->
                                             <option value="Singapore">Singapore</option>
@@ -88,11 +101,11 @@
          {{--    <img src="{{ asset('public/scrs.png') }}" alt="" id="scrcimg" style="z-index: 99999;">--}}
 
 
-    @foreach($services = App\Models\Service::where('category_id', $ServiceCategory->id)->where('status', 1)->get() as $item)
+    @foreach($services = App\Models\Service::where('category_id', $ServiceCategory->id)->where('status', 1)->get() as $row => $item)
         <section id="services" style="z-index: 9999;position: relative;background-image:url('public/bgsrc.png'); background-size: cover;background-repeat: no-repeat;">
             <div class="container">
 
-                @if ( $services->count() % 2 == 0 )
+                @if ( $row % 2 == 0 )
                     <div class="row mt-4 pt-lg-4 mb-4 pb-4">
                         <div class="col-lg-6">
                             <img src="{{ asset($item->main_img) }}" alt="" width="100%">
@@ -104,7 +117,8 @@
                             <p>{{$item->description}}</p>
                         </div>
                     </div>
-                @elseif ( $services->count() % 2 == 1 )
+
+                @else
                     <div class="row mt-4 pt-lg-4 mb-4 pb-4">
                         <div class="col-lg-6">
                             <h2 class="pt-3"
@@ -172,7 +186,7 @@
                     <div class="col-lg-6">
                         <div class="card" style="background: none;border:none">
                             <div class="card-body">
-                                <h4 style="font-size: 27px;font-weight: 600;">{{$faq_consult_img->consult_title}}</h4>
+                                <h4 style="font-size: 27px;font-weight: 600;">{{ $faq_consult_img->consult_title }}</h4>
 
                                 <form action="{{route('administrator.appointments.store')}}" name="form" method="POST">
                                     @csrf
@@ -181,19 +195,21 @@
                                             <input type="text" name="name" id="name" placeholder="Name" class="form-control mb-2 mr-4" style="border-radius: 30px;" required>
                                             <input type="text" name="phone" id="phone" placeholder="Phone" class="form-control mb-2" style="border-radius: 30px;" required>
                                         </div>
-                                        <input type="text" name="email" id="email" placeholder="Email" class="form-control mb-2" style="border-radius: 30px;">
-                                        <div class="d-flex">
-                                            <select name="service" id="country" class="form-control mb-2 mr-4" style="border-radius: 30px;" required>
-                                                <option disabled selected>Service</option>
-                                                @forelse ($solutions as $solution)
-                                                    <option value="{{ $solution->solution_title }}">{{ $solution->solution_title }}</option>
+                                        {{-- <input type="text" name="email" id="email" placeholder="Email" class="form-control mb-2" style="border-radius: 30px;"> --}}
+                                        {{-- <div class="d-flex"> --}}
+                                            <select name="service_cat" class="form-control mb-2 mr-4" style="border-radius: 30px;" required>
+                                                <option disabled selected>Select a Service</option>
+                                                @forelse (App\Models\ServiceCategory::where('status', 1)->get() as $service)
+                                                    <option value="{{ $service->id }}" @if( $service->id == $ServiceCategory->id ) selected @endif>{{ $service->title }}</option>
                                                 @empty
                                                 @endforelse
+
                                             </select>
                                             <select name="location" id="country" class="form-control mb-2" style="border-radius: 30px;">
-                                                <option value="Location">Location</option>
+                                                <option value="" disabled selected>Location</option>
+                                                <option value="singapore">Singapore</option>
                                             </select>
-                                        </div>
+                                        {{-- </div> --}}
                                         <div class="check mb-2">
                                             <input type="checkbox" name="notification" id="agree" class="mb-2" > Yes, I would like to receive important updates and notifications on WhatsApp
                                         </div>
@@ -204,6 +220,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="col-lg-6 d-block d-lg-none">
                         <img src="{{asset('public/paintman.png')}}" alt="" style="width:100%">
                     </div>

@@ -42,8 +42,11 @@ class AppServiceProvider extends ServiceProvider
 
         View()->composer('*', function ($view) {
             $sliders = Slider::where('status', 'Active')->get();
+            $setting = Websetting::first();
+
             $view->with([
                 'sliders' => $sliders,
+                'setting'=>$setting,
             ]);
         });
 
@@ -137,7 +140,6 @@ class AppServiceProvider extends ServiceProvider
                 'solutions' => $solutions,
                 'solutionLeftImg'=>$solutionLeftImg,
                 'solutionRightImg'=>$solutionRightImg
-
             ]);
         });
     }
