@@ -189,58 +189,60 @@
 
 
 
-        {{--   Consult --}}
-        <section id="services" style="background:none;background-repeat: no-repeat;background-size: cover;background-image: url('{{asset($faq_consult_img->consult_bg_image)}}');">
-            <div class="container pb-4 mb-4">
-                <div class="row align-items-center mt-4 pt-lg-4 pb-4 mb-4">
-                    <div class="col-lg-6 d-none d-lg-block">
-                        <img src="{{asset($faq_consult_img->consult_side_image)}}" alt="" style="width:100%">
-                    </div>
+    {{--   Consult --}}
+    <section id="services" style="background:none;background-repeat: no-repeat;background-size: cover;background-image: url('{{asset($faq_consult_img->consult_bg_image)}}');">
+        <div class="container pb-4 mb-4">
 
-                    <div class="col-lg-6">
-                        <div class="card" style="background: none;border:none">
-                            <div class="card-body">
-                                <h4 style="font-size: 27px;font-weight: 600;">{{ $faq_consult_img->consult_title }}</h4>
+            <div class="row align-items-center mt-4 pt-lg-4 pb-4 mb-4">
+                <div class="col-lg-6 d-none d-lg-block">
+                    <img src="{{ asset($faq_consult_img->consult_side_image) }}" alt="" style="width:100%">
+                </div>
 
-                                <form action="{{route('administrator.appointments.store')}}" name="form" method="POST">
-                                    @csrf
-                                    <div class="form-group">
-                                        <div class="d-flex">
-                                            <input type="text" name="name" id="name" placeholder="Name" class="form-control mb-2 mr-4" style="border-radius: 30px;" required>
-                                            <input type="text" name="phone" id="phone" placeholder="Phone" class="form-control mb-2" style="border-radius: 30px;" required>
-                                        </div>
-                                        {{-- <input type="text" name="email" id="email" placeholder="Email" class="form-control mb-2" style="border-radius: 30px;"> --}}
-                                        {{-- <div class="d-flex"> --}}
-                                            <select name="service_cat" class="form-control mb-2 mr-4" style="border-radius: 30px;" required>
-                                                <option disabled selected>Service</option>
-                                                @forelse (App\Models\ServiceCategory::where('status', 1)->get() as $service)
-                                                    <option value="{{ $service->id }}">{{ $service->title }}</option>
-                                                @empty
-                                                @endforelse
+                <div class="col-lg-6">
+                    <div class="card" style="background: none;border:none">
+                        <div class="card-body">
+                            <h4 style="font-size: 27px;font-weight: 600;">{{ $faq_consult_img->consult_title }}</h4>
 
-                                            </select>
-                                            <select name="location" id="country" class="form-control mb-2" style="border-radius: 30px;">
-                                                <option value="" disabled selected>Location</option>
-                                                <option value="singapore">Singapore</option>
-                                            </select>
-                                        {{-- </div> --}}
-                                        <div class="check mb-2">
-                                            <input type="checkbox" name="notification" id="agree" class="mb-2" > Yes, I would like to receive important updates and notifications on WhatsApp
-                                        </div>
-                                        <br>
-                                        <a href="#appointment" class="btn btn-get-started scrollto" style="border-radius: 45px;background:#FF7D44;color: white;font-weight: bold;  border: 2px solid #FF7D44;padding: 6px 12px;">Book an Appointment</a>
+                            <form action="{{route('administrator.appointments.store')}}" name="form" method="POST">
+                                @csrf
+                                <div class="form-group">
+                                    <div class="d-flex">
+                                        <input type="text" name="name" id="name" placeholder="Name" class="form-control mb-2 mr-4" style="border-radius: 30px;" required>
+                                        <input type="text" name="phone" id="phone" placeholder="Phone" class="form-control mb-2" style="border-radius: 30px;" required>
                                     </div>
-                                </form>
-                            </div>
+                                    {{-- <input type="text" name="email" id="email" placeholder="Email" class="form-control mb-2" style="border-radius: 30px;"> --}}
+                                    {{-- <div class="d-flex"> --}}
+                                        <select name="service_cat" class="form-control mb-2 mr-4" style="border-radius: 30px;" required>
+                                            <option disabled selected>Service</option>
+                                            @forelse (App\Models\ServiceCategory::where('status', 1)->get() as $service)
+                                                <option value="{{ $service->id }}">{{ $service->title }}</option>
+                                            @empty
+                                            @endforelse
+
+                                        </select>
+                                        <select name="location" id="country" class="form-control mb-2" style="border-radius: 30px;">
+                                            <option value="" disabled selected>Location</option>
+                                            <option value="singapore">Singapore</option>
+                                        </select>
+                                    {{-- </div> --}}
+                                    <div class="check mb-2">
+                                        <input type="checkbox" name="notification" id="agree" class="mb-2" > Yes, I would like to receive important updates and notifications on WhatsApp
+                                    </div>
+                                    <br>
+                                    <button type="submit" class="btn btn-get-started scrollto" style="border-radius: 45px;background:#FF7D44;color: white;font-weight: bold;  border: 2px solid #FF7D44;padding: 6px 12px;">Book an Appointment</button>
+                                </div>
+                            </form>
                         </div>
-                    </div>
-                    <div class="col-lg-6 d-block d-lg-none">
-                        <img src="{{asset('public/paintman.png')}}" alt="" style="width:100%">
                     </div>
                 </div>
 
+                <div class="col-lg-6 d-block d-lg-none">
+                    <img src="{{ asset($faq_consult_img->consult_side_image) }}" alt="" style="width:100%">
+                </div>
             </div>
-        </section>
+
+        </div>
+    </section>
 
     </main>
 

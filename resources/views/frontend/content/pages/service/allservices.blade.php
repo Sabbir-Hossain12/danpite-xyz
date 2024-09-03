@@ -86,9 +86,12 @@
 
     <main id="main">
         <img src="{{ asset('public/scrs.png') }}" alt="" id="scrcimg">
-        <section id="services"
-                 style="position: relative;z-index: 9999;background-image:url('public/bgsrc.png');    background-size: cover;background-repeat: no-repeat;">
+        <section id="services" style="position: relative;z-index: 9999;background-image:url('public/bgsrc.png'); background-size: cover;background-repeat: no-repeat;">
             <div class="container pb-lg-4 mb-lg-4">
+                <header class="section-header wow fadeInUp" style="z-index: 999; position: relative; visibility: visible; animation-name: fadeInUp;">
+                    <h3 style="color: #187C94;">All-Category</h3>
+                </header>
+
                 <div class="row mt-4 pt-lg-4 pb-4 mb-4">
                     @foreach(App\Models\Service::where('category_id', $ServiceCategory->id)->where('status', 1)->get() as $item)
                         <div class="col-lg-4 col-12 mb-4">
@@ -162,7 +165,7 @@
                                 <div class="row">
                                     <div class="col-lg-12 col-12" style="    padding: 75px;">
                                         <h2 style="color: white;font-weight: bold;padding-bottom: 12px;">{{$banner->banner_title}}</h2>
-                                        <a href="" class="btn btn-primary"
+                                        <a href="https://wa.me/+6586508260" class="btn btn-primary"
                                            style="background:#FF7D44;color:white;border-radius:30px;padding:15px 52px 15px 52px">Just
                                             Make a Call to Us</a>
                                     </div>

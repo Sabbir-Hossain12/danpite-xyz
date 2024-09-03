@@ -130,7 +130,7 @@
                     <p id="whop2">{{$aboutUs->aboutUs_desc}}</p>
 
                     <div class="row">
-                        <div class="col-lg-6 col-12 mb-2">
+                        <div class="col-lg-6 col-6 mb-2">
                             <div class="card card-body" id="whocard">
                                 <div class="d-flex justify-content-between">
                                     <img src="{{ asset($aboutUs->aboutUs_projectCompleted_img) }}" style="width:60px;height:60;margin-top: 6px;background:white;border-radius:50%">
@@ -141,7 +141,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-12 mb-2">
+                        <div class="col-lg-6 col-6 mb-2">
                             <div class="card card-body" id="whocard">
                                 <div class="d-flex justify-content-between">
                                     <img src="{{ asset($aboutUs->aboutUs_happyClients_img) }}" style="width:60px;height:60;margin-top: 6px;background:white;border-radius:50%">
@@ -197,7 +197,7 @@
                                 <div id="img-div">
                                     <img src="{{asset($workstep->workstep_image)}}" alt="" style="height: 90px;padding:12px;transform: scaleX(-1);">
                                 </div>
-                                <h4 class="m-0 pt-2" style="font-size: 20px;    height: 56px;">{{ $workstep->workstep_title }}</h4>
+                                <h4 class="m-0 pt-2" style="font-size: 20px; height: 56px;">{{ $workstep->workstep_title }}</h4>
                             </div>
                         </div>
                     </div>
@@ -324,7 +324,46 @@
                     @endforeach
                 </div>
                 <div class="col-12 text-center pt-4 mt-4 pb-4 mb-4">
-                    <a href="{{$facility_images->facilty_btn_link}}" class="btn btn-primary" style="background:#FF7D44;color:white;border-radius:30px;padding:15px 52px 15px 52px">{{$facility_images->facilty_btn_text}}</a>
+                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="background:#FF7D44;color:white;border-radius:30px;padding:15px 52px 15px 52px">Book an Appointments</a>
+
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="card" style="background: #1E4651; color: white;">
+                                <div class="card-body">
+                                    <h4 id="sliderh4">Book A Free Site Visit </h4>
+                                    <form  name="form" action="{{route('administrator.appointments.store')}}"  method="POST">
+                                        @csrf
+
+                                        <div class="form-group">
+                                            <input type="text" name="name" id="name" placeholder="Name" class="form-control mb-2" style="border-radius: 30px;" required />
+                                            <input type="text" name="phone" id="phone" placeholder="Phone" class="form-control mb-2" style="border-radius: 30px;" />
+                                            {{-- <input type="text" name="email" id="email" placeholder="Email" class="form-control mb-2" style="border-radius: 30px;" /> --}}
+                                            <select name="service_cat" style="border-radius: 30px;" class="form-control mb-2" id="service_cat">
+                                                    <option value="" disabled selected>Select Service</option>
+                                                  @foreach ( App\Models\ServiceCategory::where('status', 1)->get() as $item )
+                                                    <option value="{{ $item->id }}" >{{ $item->title }}</option>
+                                                  @endforeach
+                                            </select>
+
+                                            <select name="location" id="country" class="form-control mb-2" style="border-radius: 30px;" >
+                                                <!--<option value="Bangladesh">Bangladesh</option>-->
+                                                <option value="Singapore">Singapore</option>
+                                            </select>
+                                            <div class="check mb-2">
+                                                <input type="checkbox" name="notification" id="agree" class="mb-2" /> Yes, I would like to receive important updates and notifications on WhatsApp
+                                            </div>
+                                            <button type="submit"  class="btn btn-get-started scrollto" style="background:#FF7D44;color: white;font-weight: bold;  border: 2px solid #FF7D44; padding: 2px 6px;">Book an Appointment</button>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -426,7 +465,7 @@
 
             <div class="row align-items-center mt-4 pt-lg-4 pb-4 mb-4">
                 <div class="col-lg-6 d-none d-lg-block">
-                    <img src="{{asset($faq_consult_img->consult_side_image)}}" alt="" style="width:100%">
+                    <img src="{{ asset($faq_consult_img->consult_side_image) }}" alt="" style="width:100%">
                 </div>
 
                 <div class="col-lg-6">
@@ -460,7 +499,7 @@
                                         <input type="checkbox" name="notification" id="agree" class="mb-2" > Yes, I would like to receive important updates and notifications on WhatsApp
                                     </div>
                                     <br>
-                                    <a href="#appointment" class="btn btn-get-started scrollto" style="border-radius: 45px;background:#FF7D44;color: white;font-weight: bold;  border: 2px solid #FF7D44;padding: 6px 12px;">Book an Appointment</a>
+                                    <button type="submit" class="btn btn-get-started scrollto" style="border-radius: 45px;background:#FF7D44;color: white;font-weight: bold;  border: 2px solid #FF7D44;padding: 6px 12px;">Book an Appointment</button>
                                 </div>
                             </form>
                         </div>
@@ -468,7 +507,7 @@
                 </div>
 
                 <div class="col-lg-6 d-block d-lg-none">
-                    <img src="{{ asset('public/paintman.png') }}" alt="" style="width:100%">
+                    <img src="{{ asset($faq_consult_img->consult_side_image) }}" alt="" style="width:100%">
                 </div>
             </div>
 

@@ -17,11 +17,7 @@
                         @endforeach
                     </ul>
                 </li>
-                <li class="menu-has-children"><a href="">Pricing</a>
-                    <ul>
-                        <li><a href="{{ url('priceing') }}">Pricing List</a></li>
-                    </ul>
-                </li>
+                <li><a href="{{ url('priceing') }}">Pricing</a></li>
                 <li><a href="{{ url('daily-blogs') }}">Blog</a></li>
                 <li><a href="{{ url('contact-us') }}">Contact Us</a></li>
                 <li>
