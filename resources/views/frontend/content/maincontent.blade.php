@@ -1,4 +1,10 @@
-
+@php
+$services = DB::table('services')
+            ->join('service_categories', 'service_categories.id', 'services.category_id' )
+            ->select('services.thumbnail', 'services.status', 'service_categories.slug')
+            ->where('services.status', 1)
+            ->get();
+@endphp
 
 @extends('frontend.master')
 
@@ -112,9 +118,11 @@
                 @endforelse --}}
 
                 <div class="all_service_container">
-                    @foreach(App\Models\Service::where('status', 1)->get() as $item)
+                    @foreach( $services as $item )
                         <div class="service_show">
-                            <img src="{{ asset($item->thumbnail) }}" alt="" style="width: 100%">
+                           <a href="{{ route('services.category', $item->slug) }}">
+                               <img src="{{ asset($item->thumbnail) }}" alt="" style="width: 100%">
+                           </a>
                         </div>
                    @endforeach
                 </div>
