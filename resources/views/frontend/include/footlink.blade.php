@@ -21,25 +21,25 @@
 
 
 <script>
-    let msg_chat         = document.querySelector('.msg_chat');
-    let message_cross    = document.querySelector('.message_cross');
-    let form_submission  = document.querySelector('.form_submission');
-    let remove_msg       = document.querySelector('.remove_msg');
-    let message          = document.querySelector('.message');
+    // let msg_chat         = document.querySelector('.msg_chat');
+    // let message_cross    = document.querySelector('.message_cross');
+    // let form_submission  = document.querySelector('.form_submission');
+    // let remove_msg       = document.querySelector('.remove_msg');
+    // let message          = document.querySelector('.message');
 
-    msg_chat.addEventListener('click', function(){
-        form_submission.classList.add('chat_active');
-        message.classList.add('hide_msg');
-    })
+    // msg_chat.addEventListener('click', function(){
+    //     form_submission.classList.add('chat_active');
+    //     message.classList.add('hide_msg');
+    // })
 
-    message_cross.addEventListener('click', function(){
-        form_submission.classList.remove('chat_active');
-    })
+    // message_cross.addEventListener('click', function(){
+    //     form_submission.classList.remove('chat_active');
+    // })
 
-    remove_msg.addEventListener('click', function(){
-        // console.log('remind data');
-        message.classList.add('hide_msg');
-    })
+    // remove_msg.addEventListener('click', function(){
+    //     // console.log('remind data');
+    //     message.classList.add('hide_msg');
+    // })
 
 
     // Create Support Services
@@ -176,6 +176,23 @@
             comment_field[i].classList.remove('comment_active');
          });
      });
+
+
+     // navbar dropdown
+     $(document).ready(function()
+	{
+		$('.navbar-nav li a.dropdown-toggle').click(function(e)
+		{
+			e.preventDefault();
+			$(this).parent().toggleClass('open');
+		});
+		$('[data-toggle="collapse"]').click(function()
+		{
+			var target = $(this).attr('data-target');
+			$(target).toggleClass('in');
+		});
+	});
+
 
  </script>
 

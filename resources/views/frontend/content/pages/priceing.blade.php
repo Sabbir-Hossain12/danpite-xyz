@@ -35,11 +35,11 @@
         <section id="intro" class="carousel-background" style="background-image: url('{{ asset( $slider->slider_image ) }}')">
             <div class="container" id="featured_services">
                 <div class="row align-items-center">
-                    <div class="col-md-8">
+                    <div class="col-lg-8">
                         <h1 id="sliderh1">Cost and Pricing</h1>
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="col-lg-4">
                         <div class="card" style="background: #1E4651;border-radius: 20px;color: white;">
                             <div class="card-body">
                                 <h4 id="sliderh4">Book A Free Site Visit </h4>

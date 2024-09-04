@@ -42,7 +42,7 @@
         <section id="intro" class="carousel-background" style="background-image: url('{{ asset( $slider->slider_image ) }}')">
             <div class="container" id="appointment">
                 <div class="row align-items-center">
-                    <div class="col-md-8">
+                    <div class="col-lg-8">
                         <h1 id="sliderh1">{{ $slider->slider_small_title }}</h1>
                         <p id="sliderhp">{{ $slider->slider_text }}</p>
                         <div class="d-flex align-items-center w-100" id="sliderbtngrp">
@@ -51,7 +51,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="col-lg-4">
                         <div class="card" style="background: #1E4651;border-radius: 20px;color: white;">
                             <div class="card-body">
                                 <h4 id="sliderh4">Book A Free Site Visit </h4>
@@ -101,7 +101,7 @@
             </header>
 
             <div class="row mt-4 pt-lg-4">
-                @forelse ($solutions as $solution)
+                {{-- @forelse ($solutions as $solution)
                     <div class="col-lg-4 col-md-6 box wow bounceInUp text-left" data-wow-duration="1.4s" style="background-image: url('{{asset($solution->solution_bg_image)}}');background-size: 90%; background-repeat: no-repeat;background-position-y: 100%;background-position-x: -0%;">
                         <img src="{{asset($solution->solution_image)}}" alt="" id="solimg">
                         <h4 class="title"><a href="">{{ $solution->solution_title }}</a></h4>
@@ -109,8 +109,16 @@
                         <a href="{{$solution->solution_btn_link}}" id="topbook" style="background: none;border:none;padding-left:0px;color:#FF7D44;">{{ $solution->solution_btn_name }}  <i class="fa fa-arrow-right"></i></a>
                     </div>
                 @empty
+                @endforelse --}}
 
-                @endforelse
+                <div class="all_service_container">
+                    @foreach(App\Models\Service::where('status', 1)->get() as $item)
+                        <div class="service_show">
+                            <img src="{{ asset($item->thumbnail) }}" alt="" style="width: 100%">
+                        </div>
+                   @endforeach
+                </div>
+
             </div>
         </div>
     </section>
@@ -120,42 +128,46 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-5 col-12">
-                    <img src="{{ asset($aboutUs->aboutUs_sideImg) }}" style="width:100%">
+                    <div class="about_img">
+                        <img src="{{ asset($aboutUs->aboutUs_sideImg) }}">
+                    </div>
                 </div>
                 <div class="col-lg-1">
                 </div>
                 <div class="col-lg-6 col-12">
                     <h2 class="pt-3" id="whoh1">{{$aboutUs->aboutUs_title1}}</h2>
-                    <p id="whop1">{{$aboutUs->aboutUs_title2}}</p>
-                    <p id="whop2">{{$aboutUs->aboutUs_desc}}</p>
+                    <p id="whop1">{{ $aboutUs->aboutUs_title2 }}</p>
+                    <p id="whop2">{{ $aboutUs->aboutUs_desc }}</p>
 
                     <div class="row">
-                        <div class="col-lg-6 col-6 mb-2">
+                        <div class="col-lg-6 col-6 col-md-6 mb-2">
                             <div class="card card-body" id="whocard">
-                                <div class="d-flex justify-content-between">
-                                    <img src="{{ asset($aboutUs->aboutUs_projectCompleted_img) }}" style="width:60px;height:60;margin-top: 6px;background:white;border-radius:50%">
+                                <div class="card_design">
+                                    <img src="{{ asset( $aboutUs->aboutUs_projectCompleted_img ) }}" >
                                     <div class="info">
-                                        <h4 id="whocardh4">{{$aboutUs->aboutUs_projectCompleted_count}}</h4>
-                                        <p class="m-0">{{$aboutUs->aboutUs_projectCompleted_title}}</p>
+                                        <h4 id="whocardh4">{{ $aboutUs->aboutUs_projectCompleted_count }}</h4>
+                                        <p class="m-0">{{ $aboutUs->aboutUs_projectCompleted_title }}</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-6 mb-2">
+
+                        <div class="col-lg-6 col-6 col-md-6 mb-2">
                             <div class="card card-body" id="whocard">
-                                <div class="d-flex justify-content-between">
-                                    <img src="{{ asset($aboutUs->aboutUs_happyClients_img) }}" style="width:60px;height:60;margin-top: 6px;background:white;border-radius:50%">
+                                <div class="card_design">
+                                    <img src="{{ asset( $aboutUs->aboutUs_happyClients_img ) }}" >
                                     <div class="info">
-                                        <h4 id="whocardh4">{{$aboutUs->aboutUs_happyClients_count}}</h4>
-                                        <p class="m-0">{{$aboutUs->aboutUs_happyClients_title}}</p>
+                                        <h4 id="whocardh4">{{ $aboutUs->aboutUs_happyClients_count }}</h4>
+                                        <p class="m-0">{{ $aboutUs->aboutUs_happyClients_title }}</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-12 mb-2">
+
+                        <div class="col-lg-6 col-6 col-md-6 mb-2">
                             <div class="card card-body" id="whocard">
-                                <div class="d-flex justify-content-between">
-                                    <img src="{{ asset($aboutUs->aboutUs_teamMembers_img) }}" style="width:60px;height:60;margin-top: 6px;background:white;border-radius:50%">
+                                <div class="card_design">
+                                    <img src="{{ asset($aboutUs->aboutUs_teamMembers_img) }}" >
                                     <div class="info">
                                         <h4 id="whocardh4">{{$aboutUs->aboutUs_teamMembers_count}}</h4>
                                         <p class="m-0">{{$aboutUs->aboutUs_teamMembers_title}}</p>
@@ -163,10 +175,11 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-12 mb-2">
+
+                        <div class="col-lg-6 col-6 col-md-6 mb-2">
                             <div class="card card-body" id="whocard">
-                                <div class="d-flex justify-content-between">
-                                    <img src="{{ asset($aboutUs->aboutUs_yearsService_img) }}" style="width:60px;height:60;margin-top: 6px;background:white;border-radius:50%">
+                                <div class="card_design">
+                                    <img src="{{ asset($aboutUs->aboutUs_yearsService_img) }}" >
                                     <div class="info">
                                         <h4 id="whocardh4">{{$aboutUs->aboutUs_yearsService_count}}</h4>
                                         <p class="m-0">{{$aboutUs->aboutUs_yearsService_title}}</p>
@@ -256,11 +269,11 @@
             <div class="row pb-4">
             {{--  @foreach($banners as $banner) --}}
                 <div class="col-12">
-                    <div class="imgb" style="background-image: url('{{asset($banner->banner_image)}}');    background-size: cover;border-radius: 15px; ">
+                    <div class="imgb" style="background-image: url('{{asset( $banner->banner_image )}}'); background-size: cover;border-radius: 15px; ">
                         <div class="row">
                             <div class="col-lg-12 col-12" style="padding: 36px;">
-                                <h2 style="color: white;font-weight: bold;padding-bottom: 12px;font-size: 22px;text-align: center;padding: 0;">{{$banner->banner_title}}</h2>
-                                <a href="{{$banner->banner_btn_link}}" class="btn btn-primary" style="background:#FF7D44;color:white;border-radius:30px;padding:15px 52px 15px 52px">{{$banner->banner_btn_text}}</a>
+                                <h2 style="color: white;font-weight: bold;padding-bottom: 12px;font-size: 22px;text-align: center;padding: 0;">{{ $banner->banner_title }}</h2>
+                                <a href="{{ $banner->banner_btn_link }}" class="btn btn-primary btn_call_us">{{$banner->banner_btn_text}}</a>
                             </div>
                         </div>
                     </div>
@@ -282,7 +295,7 @@
             </header>
 
             <div class="row mt-4 pt-lg-4 mb-4 pb-4">
-                <div class="col-lg-6 mb-4">
+                <div class="col-lg-6 mb-4 order-1 order-md-1 order-lg-0">
                     @foreach($facilitys as $facility)
                     <div class="card card-body mb-2 p-2" style="background:#fff;border:none;">
                         <div class="d-flex">
@@ -295,22 +308,24 @@
 
                     @endforeach
                 </div>
-                <div class="col-lg-2">
 
-                </div>
-                <div class="col-lg-4">
-                    <img src="{{ asset($facility_images->facilty_side_img1) }}" alt="" width="100%">
+                <div class="col-lg-4 offset-lg-2 order-0 order-md-0 order-lg-1">
+                    <div class="facilities_img">
+                        <img src="{{ asset($facility_images->facilty_side_img1) }}" alt="" width="100%">
+                    </div>
                 </div>
             </div>
+
             <br>
+
             <div class="row mt-4 pt-lg-4">
                 <div class="col-lg-4 mb-4">
-                    <img src="{{ asset($facility_images->facilty_side_img2) }}" alt="" width="100%">
+                    <div class="facilities_img">
+                        <img src="{{ asset($facility_images->facilty_side_img2) }}" alt="" width="100%">
+                    </div>
                 </div>
-                <div class="col-lg-2">
 
-                </div>
-                <div class="col-lg-6">
+                <div class="col-lg-6 offset-lg-2">
                     @foreach($facilitys as $facility)
                     <div class="card card-body mb-2 p-2" style="background:#fff;border:none;">
                         <div class="d-flex">
@@ -374,7 +389,6 @@
 
     {{--  Clients  --}}
     <section id="portfolio" style="max-height: 900px;background-repeat: no-repeat;background-size: cover;background-image: url('public/our-recent-works-bg.png');">
-
         <div class="container">
             <div class="container" id="trusted">
                 <header class="section-header">
@@ -425,13 +439,16 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-5 col-12">
-                    <img src="{{ asset($faq_consult_img->faq_image) }}" style="width:100%">
+                    <div class="faq_img">
+                        <img src="{{ asset($faq_consult_img->faq_image) }}">
+                    </div>
                 </div>
-                <div class="col-lg-1">
-                </div>
-                <div class="col-lg-6 col-12">
-                    <h3 id="faeh3"><b>FAQs</b></h3>
 
+                {{-- <div class="col-lg-1">
+                </div> --}}
+
+                <div class="col-lg-6 col-12 offset-lg-1">
+                    <h3 id="faeh3"><b>FAQs</b></h3>
 
                     <div class="accordion" id="accordionExample">
                         @forelse ($faqs as $faq)

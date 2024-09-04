@@ -60,8 +60,9 @@
         toastr.warning("{{ session('warning') }}");
         @endif
     </script>
+
     @include('frontend.include.footlink')
-   
+
 
 
 </body>

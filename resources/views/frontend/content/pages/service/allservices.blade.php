@@ -40,11 +40,11 @@
         <section id="intro" class="carousel-background" style="background-image: url('{{ asset( $slider->slider_image ) }}')">
             <div class="container">
                 <div class="row align-items-center">
-                    <div class="col-md-8">
+                    <div class="col-lg-8">
                         <h1 id="sliderh1">{{ $ServiceCategory->title }}</h1>
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="col-lg-4">
                         <div class="card" style="background: #1E4651;border-radius: 20px;color: white;">
                             <div class="card-body">
                                 <h4 id="sliderh4">Book A Free Site Visit </h4>
@@ -225,7 +225,7 @@
                     </div>
 
                     <div class="col-lg-6 d-block d-lg-none">
-                        <img src="{{asset('public/paintman.png')}}" alt="" style="width:100%">
+                        <img src="{{asset($faq_consult_img->consult_side_image)}}" alt="" style="width:100%">
                     </div>
                 </div>
 
