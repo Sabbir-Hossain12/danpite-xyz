@@ -89,20 +89,23 @@
 
     <main id="main">
         <img src="{{ asset('public/scrs.png') }}" alt="" id="scrcimg">
-        <section id="services" style="position: relative;z-index: 9999;background-image:url('public/bgsrc.png'); background-size: cover;background-repeat: no-repeat;">
-            <div class="container pb-lg-4 mb-lg-4">
+        <section id="services" style="position: relative; z-index: 9999; background-image:url('public/bgsrc.png'); background-size: cover; background-repeat: no-repeat;" >
+
+            <div class="container pb-lg-4 mb-lg-4 sub_category_container">
                 <header class="section-header wow fadeInUp" style="z-index: 999; position: relative; visibility: visible; animation-name: fadeInUp;">
                     <h3 style="color: #187C94;">All-Category</h3>
                 </header>
 
                 <div class="row mt-4 pt-lg-4 pb-4 mb-4">
-                    @foreach(App\Models\Service::where('category_id', $ServiceCategory->id)->where('status', 1)->get() as $item)
-                        <div class="col-lg-4 col-12 mb-4">
-                            <a href="{{ route('services.sub.category', $item->slug) }}">
-                                <img src="{{ asset($item->thumbnail) }}" alt="" style="width: 100%">
-                            </a>
-                        </div>
-                    @endforeach
+                    <div class="owl-carousel owl-theme" id="sub_serviceCategory">
+                        @foreach(App\Models\Service::where('category_id', $ServiceCategory->id)->where('status', 1)->get() as $item)
+                            {{-- <div class="col-lg-4 col-12 mb-4"> --}}
+                                <a href="{{ route('services.sub.category', $item->slug) }}">
+                                    <img src="{{ asset($item->thumbnail) }}" alt="" style="width: 100%">
+                                </a>
+                            {{-- </div> --}}
+                        @endforeach
+                    </div>
                 </div>
             </div>
         </section>
@@ -241,4 +244,35 @@
 
     </main>
 
+
+    <script>
+        $(document).ready(function(){
+            $('#sub_serviceCategory').owlCarousel({
+                loop: true,
+                margin: 10,
+                nav: true,
+                autoplay: true,
+                autoplayHoverPause: true,
+                autoplayTimeout: 2000,
+                smartSpeed: 250,
+                navText: ["<i class='bx bx-chevrons-left' ></i>","<i class='bx bx-chevrons-right' ></i>"],
+                responsive:{
+                    0:{
+                        items: 3
+                    },
+                    769:{
+                        items: 4
+                    },
+                    1000:{
+                        margin: 25,
+                        items: 5
+                    }
+                }
+            })
+        });
+    </script>
+
 @endsection
+
+
+

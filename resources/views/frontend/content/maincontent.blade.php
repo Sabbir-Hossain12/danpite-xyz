@@ -133,8 +133,9 @@
                         @endforeach
                     </div>
 
+                    {{-- Category Responsive Slider --}}
                     <div class="carousel_service_container">
-                        <div class="owl-carousel owl-theme">
+                        <div class="owl-carousel owl-theme" id="serviceCategory">
                             @foreach( $services as $row )
                                 <div class="service_show">
                                     <a href="{{ route('services.category', $row->slug) }}">
@@ -147,6 +148,7 @@
                                         </a>
                                     </h4>
                                 </div>
+
                             @endforeach
                         </div>
                     </div>
@@ -324,7 +326,7 @@
     <section id="services">
         <div class="container">
 
-            <header class="section-header facilities_section wow fadeInUp" style="z-index: 999;position: relative;">
+            <header class="section-header facilities_section wow fadeInUp" style="z-index: 999; position: relative;">
                 <h3 style="color: #187C94;">{{$facility_images->facility_title}}</h3>
             </header>
 
@@ -579,13 +581,13 @@
         $('.carousel-item:first-child').addClass('active');
 
 
-        $('.owl-carousel').owlCarousel({
-            loop:true,
+        $('#serviceCategory').owlCarousel({
+            loop: true,
             margin:10,
-            nav:false,
+            nav: true,
             autoplay: true,
             autoplayTimeout: 3000,
-            autoplayHoverPause: true,
+            navText: ["<i class='bx bx-chevrons-left' ></i>","<i class='bx bx-chevrons-right' ></i>"],
             smartSpeed: 250,
             responsive:{
                 0:{
