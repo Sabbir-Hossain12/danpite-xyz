@@ -36,6 +36,17 @@ class ServiceCategoryController extends Controller
         $serviceCategory->title      = $request->title;
         $serviceCategory->slug       = Str::slug($request->title);
         $serviceCategory->status     = 1;
+
+        if( $request->file('image') ){
+            $image = $request->file('image');
+
+            $imageName          = microtime('.') . '.' . $image->getClientOriginalExtension();
+            $imagePath          = 'public/backend/image/category/';
+            $image->move($imagePath, $imageName);
+
+            $serviceCategory->image   = $imagePath . $imageName;
+        }
+
         $serviceCategory->save();
 
         return response()->json($serviceCategory, 200);
@@ -45,11 +56,21 @@ class ServiceCategoryController extends Controller
     {
         $ServiceCategories = ServiceCategory::all();
         return Datatables::of($ServiceCategories)
+            ->addColumn('image', function ($ServiceCategory) {
+                return '<image src="'. asset($ServiceCategory->image) .'" style="width: 75px;">';
+            })
+            ->addColumn('status', function ($ServiceCategory) {
+                if ( $ServiceCategory->status == 1) {
+                    return '<span class="btn btn-success btn-sm btn-status" data-status="' . $ServiceCategory->status . '" id="status_btn" data-id="' . $ServiceCategory->status . '">Active</span>';
+                } else {
+                    return '<span class="btn btn-warning btn-sm btn-status" data-status="' . $ServiceCategory->status . '" id="status_btn" data-id="' . $ServiceCategory->status . '" >Inactive</span>';
+                }
+            })
             ->addColumn('action', function ($ServiceCategory) {
                 return '<a href="#" type="button" id="editButton" data-id="' . $ServiceCategory->id . '"   class="btn btn-primary btn-sm" data-toggle="modal" data-target="#edit_modal">Edit</a>
                 <a href="#" type="button" id="delete_btn" data-id="' . $ServiceCategory->id . '" class="btn btn-danger btn-sm" >Delete</a>';
             })
-            // ->rawColumns(['action'])
+            ->rawColumns(['image', 'status', 'action'])
             ->make(true);
     }
 
@@ -83,6 +104,20 @@ class ServiceCategoryController extends Controller
         $serviceCategory->slug       = Str::slug($request->title);
         $serviceCategory->status     = 1;
 
+        if( $request->file('image') ){
+            $image = $request->file('image');
+
+            if( !empty($serviceCategory->image) && file_exists($serviceCategory->image) ){
+                unlink($serviceCategory->image);
+           }
+
+            $imageName          = microtime('.') . '.' . $image->getClientOriginalExtension();
+            $imagePath          = 'public/backend/image/category/';
+            $image->move($imagePath, $imageName);
+
+            $serviceCategory->image   = $imagePath . $imageName;
+        }
+
         $serviceCategory->update();
 
         return response()->json($serviceCategory, 200);
@@ -97,6 +132,13 @@ class ServiceCategoryController extends Controller
     public function destroy($id)
     {
         $serviceCategory = ServiceCategory::findOrfail($id);
+
+        if ( !is_null($serviceCategory->image) ) {
+            if (file_exists($serviceCategory->image)) {
+                unlink($serviceCategory->image);
+            }
+        }
+
         $serviceCategory->delete();
         return response()->json('success', 200);
     }
@@ -104,6 +146,7 @@ class ServiceCategoryController extends Controller
     public function statusUpdate(Request $request)
     {
         $serviceCategory = ServiceCategory::where('id',$request->id)->first();
+
         if( $request->status == 1 ){
             $serviceCategory->status  =  0;
         }

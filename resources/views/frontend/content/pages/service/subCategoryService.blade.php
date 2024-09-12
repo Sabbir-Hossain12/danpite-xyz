@@ -1,7 +1,6 @@
-@php
+{{-- @php
     $services = App\Models\Service::where('category_id', $ServiceCategory->id)->where('status', 1)->get();
-
-@endphp
+@endphp --}}
 
 @extends('frontend.master')
 
@@ -41,14 +40,14 @@
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-lg-8">
-                        <h1 id="sliderh1">{{ $ServiceCategory->title }}</h1>
+                        <h1 id="sliderh1">{{ $service->title }}</h1>
                     </div>
 
                     <div class="col-lg-4">
                         <div class="card pc_appointment" style="background: #1E4651;border-radius: 20px;color: white;">
                             <div class="card-body">
                                 <h4 id="sliderh4">Book Your Service</h4>
-                                <form  name="form" action="{{route('administrator.appointments.store')}}"  method="POST">
+                                <form  name="form" action="{{ route('administrator.appointments.store') }}"  method="POST">
                                     @csrf
 
                                     <div class="form-group">
@@ -89,7 +88,7 @@
 
     <main id="main">
         <img src="{{ asset('public/scrs.png') }}" alt="" id="scrcimg">
-        <section id="services" style="position: relative;z-index: 9999;background-image:url('public/bgsrc.png'); background-size: cover;background-repeat: no-repeat;">
+        {{-- <section id="services" style="position: relative;z-index: 9999;background-image:url('public/bgsrc.png'); background-size: cover;background-repeat: no-repeat;">
             <div class="container pb-lg-4 mb-lg-4">
                 <header class="section-header wow fadeInUp" style="z-index: 999; position: relative; visibility: visible; animation-name: fadeInUp;">
                     <h3 style="color: #187C94;">All-Category</h3>
@@ -98,50 +97,30 @@
                 <div class="row mt-4 pt-lg-4 pb-4 mb-4">
                     @foreach(App\Models\Service::where('category_id', $ServiceCategory->id)->where('status', 1)->get() as $item)
                         <div class="col-lg-4 col-12 mb-4">
-                            <a href="{{ route('services.sub.category', $item->slug) }}">
-                                <img src="{{ asset($item->thumbnail) }}" alt="" style="width: 100%">
-                            </a>
+                            <img src="{{ asset($item->thumbnail) }}" alt="" style="width: 100%">
                         </div>
                     @endforeach
                 </div>
             </div>
-        </section>
+        </section> --}}
          {{--    <img src="{{ asset('public/scrs.png') }}" alt="" id="scrcimg" style="z-index: 99999;">--}}
 
 
-    @foreach($services = App\Models\Service::where('category_id', $ServiceCategory->id)->where('status', 1)->get() as $row => $item)
         <section id="services" style="z-index: 9999;position: relative;background-image:url('public/bgsrc.png'); background-size: cover;background-repeat: no-repeat;">
             <div class="container">
-
-                @if ( $row % 2 == 0 )
-                    <div class="row mt-4 pt-lg-4 mb-4 pb-4">
-                        <div class="col-lg-6">
-                            <img src="{{ asset($item->main_img) }}" alt="" width="100%">
-                        </div>
-
-                        <div class="col-lg-6">
-                            <h2 class="pt-3"
-                                style="font-weight:bold;color:#1E4651;">{{$item->title}}</h2>
-                            <p>{{$item->description}}</p>
-                        </div>
+                <div class="row mt-4 pt-lg-4 mb-4 pb-4">
+                    <div class="col-lg-6">
+                        <img src="{{ asset( $service->main_img ) }}" alt="" width="100%">
                     </div>
 
-                @else
-                    <div class="row mt-4 pt-lg-4 mb-4 pb-4">
-                        <div class="col-lg-6">
-                            <h2 class="pt-3"
-                                style="font-weight:bold;color:#1E4651;">{{$item->title}}</h2>
-                            <p>{{$item->description}}</p>
-                        </div>
-
-                        <div class="col-lg-6">
-                            <img src="{{ asset($item->main_img) }}" alt="" width="100%">
-                        </div>
+                    <div class="col-lg-6">
+                        <h2 class="pt-3"
+                            style="font-weight:bold;color:#1E4651;">{{ $service->title }}</h2>
+                        <p>{{ $service->description }}</p>
                     </div>
-                @endif
+                </div>
             </div>
         </section>
-    @endforeach
 
         {{-- <img src="{{ asset('public/scrs.png') }}" alt="" id="scrcimg" style="z-index: 9999;"> --}}
         {{-- <section id="services"

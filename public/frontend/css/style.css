@@ -177,6 +177,13 @@ h6 {
 .drawer_close{
     display: none;
 }
+.modal_close{
+    position: absolute;
+    top: -6px;
+    right: 16px;
+    color: #FFF;
+    font-size: 36px;
+}
 
 @media ( min-width: 320px ) and ( max-width: 576px ){
     #header{
@@ -184,14 +191,17 @@ h6 {
     }
     #header.header-scrolled {
         background: #187C94;
-        padding: 20px 0;
+        padding: 14px 0;
         /* height: 72px; */
         transition: all 0.5s;
+    }
+    .pc_appointment{
+        display: none;
     }
     .hamburger_menu{
         display: block;
         color: #FFF;
-        font-size: 28px;
+        font-size: 32px;
     }
     .main_nav_container_div .nav-menu-container{
         position: absolute;
@@ -202,7 +212,7 @@ h6 {
         display: flex;
         justify-content: center;
         align-items: center;
-        background: rgba(0, 0, 0, 0.8);
+        background: rgba(0, 0, 0, 0.6);
         backdrop-filter: blur(12px);
         opacity: 0;
         visibility: hidden;
@@ -252,6 +262,9 @@ h6 {
         padding: 20px 0;
         /* height: 72px; */
         transition: all 0.5s;
+    }
+    .pc_appointment{
+        display: none;
     }
     .hamburger_menu{
         display: block;
@@ -317,6 +330,9 @@ h6 {
         /* height: 72px; */
         transition: all 0.5s;
     }
+    .pc_appointment{
+        display: none;
+    }
     .hamburger_menu{
         display: block;
         color: #FFF;
@@ -378,7 +394,7 @@ h6 {
 #intro {
     display: table;
     width: 100%;
-    padding: 15rem 0;
+    padding: 10rem 0;
 }
 
 #intro .carousel-item {
@@ -563,6 +579,43 @@ h6 {
 #intro .btn-get-started:hover {
     background: #fff;
     color: #187C94;
+}
+
+.image_cloud{
+    display: none;
+}
+
+@media ( min-width: 320px ) and ( max-width: 576px ){
+    .carousel-background{
+        background-position: 100% 76%;
+    }
+    #intro {
+        display: table;
+        width: 100%;
+        padding: 8rem 0 3rem;
+    }
+}
+
+@media ( min-width: 577px ) and ( max-width: 768px ){
+    .carousel-background{
+        background-position: 100% 76%;
+    }
+    #intro {
+        display: table;
+        width: 100%;
+        padding: 8rem 0 3rem;
+    }
+}
+
+@media ( min-width: 769px ) and ( max-width: 992px ){
+    .carousel-background{
+        background-position: 100% 76%;
+    }
+    #intro {
+        display: table;
+        width: 100%;
+        padding: 8rem 0 3rem;
+    }
 }
 
 
@@ -826,6 +879,12 @@ body.mobile-nav-active #mobile-nav-toggle {
     color: #fff;
 }
 
+@media ( min-width: 320px ) and ( max-width: 576px ){
+    .nav-menu ul {
+        left: 0%;
+    }
+}
+
 
 /*--------------------------------------------------------------
 # Sections
@@ -872,6 +931,9 @@ body.mobile-nav-active #mobile-nav-toggle {
     padding-bottom: 30px;
     color: #333;
 }
+/* #responsive_modal{
+    position: relative;
+} */
 
 
 /* Section with background
@@ -1083,7 +1145,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 --------------------------------*/
 
 #services {
-    background: #E9F2F4;
+    /* background: #E9F2F4; */
     background-size: cover;
     padding: 60px 0 40px 0;
 }
@@ -1105,18 +1167,32 @@ body.mobile-nav-active #mobile-nav-toggle {
     cursor: pointer;
     margin-top: 14px;
 }
-/* .facilities_img img{
-   width: 300px;
-   margin: 0 auto;
-   display: block;
-} */
 .all_service_container{
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     grid-gap: 20px;
 }
+.carousel_service_container{
+    display: none;
+}
+.service_show{
+    background-color: #f0f1f1;
+    border-radius: 8px;
+    overflow: hidden;
+    padding: 20px;
+    cursor: pointer;
+}
 .service_show img{
-  width: 100%;
+    width: 72px !important;
+    height: 72px;
+    display: block;
+    margin: 0 auto;
+}
+.service_show h4{
+    color: #57585a;
+    font-size: 14px;
+    text-align: center;
+    margin: 20px 0 0 0;
 }
 #services .icon i {
     color: #187C94;
@@ -1210,12 +1286,23 @@ body.mobile-nav-active #mobile-nav-toggle {
         display: block;
      }
      .all_service_container{
-        display: grid;
+        display: none;
         grid-template-columns: repeat(3, 1fr);
         grid-gap: 20px;
     }
+    .carousel_service_container{
+        display: block;
+    }
+
 }
 @media ( min-width: 577px ) and ( max-width: 768px ){
+    #services {
+        background-size: cover;
+        padding: 28px 0 28px 0;
+    }
+    #whop2{
+        text-align: justify;
+    }
     .facilities_img{
         margin-bottom: 40px;
     }
@@ -1225,24 +1312,37 @@ body.mobile-nav-active #mobile-nav-toggle {
         display: block;
      }
      .all_service_container{
-        display: grid;
+        display: none;
         grid-template-columns: repeat(4, 1fr);
         grid-gap: 20px;
+    }
+    .carousel_service_container{
+        display: block;
+    }
+    .service_show img {
+        width: 45px !important;
+        height: 45px;
     }
 }
 @media ( min-width: 769px ) and ( max-width: 992px ){
     .facilities_img{
         margin-bottom: 40px;
     }
+    #whop2{
+        text-align: justify;
+    }
     .facilities_img img{
         width: 300px;
         margin: 0 auto;
         display: block;
      }
      .all_service_container{
-        display: grid;
+        display: none;
         grid-template-columns: repeat(4, 1fr);
         grid-gap: 20px;
+    }
+    .carousel_service_container{
+        display: block;
     }
 }
 
@@ -2286,8 +2386,9 @@ body.mobile-nav-active #mobile-nav-toggle {
 #scrcimg {
     position: absolute;
     width: 100%;
-    margin-top: -55px;
+    margin-top: -95px;
     z-index: 999;
+    /* display: none; */
 }
 
 #sliderh4 {
@@ -2408,6 +2509,17 @@ body.mobile-nav-active #mobile-nav-toggle {
         border-radius: 50%;
         margin-right: 0;
     }
+    .service_show {
+        padding: 12px;
+    }
+    .service_show img {
+        width: 35px !important;
+        height: 35px;
+    }
+    .service_show h4 {
+        font-size: 11px;
+        margin: 12px 0 0 0;
+    }
     .info p{
         font-size: 14px;
     }
@@ -2492,16 +2604,16 @@ body.mobile-nav-active #mobile-nav-toggle {
         width: 100% !important;
     }
     #sliderbtngrp {
-        display: inline !important;
+        display: none !important;
     }
     #scrcimg {
         position: absolute;
         width: 100%;
         margin-top: -20px;
         z-index: 999;
+        display: none;
     }
     #services {
-        background: #E9F2F4;
         background-size: cover;
         padding: 30px 0 15px 0;
     }
@@ -2538,7 +2650,7 @@ body.mobile-nav-active #mobile-nav-toggle {
     }
     #whop2 {
         font-size: 14px;
-        text-align: center;
+        text-align: justify;
     }
     #whocard {
         background: #E9F2F4;
@@ -2568,6 +2680,21 @@ body.mobile-nav-active #mobile-nav-toggle {
         position: relative;
         padding-bottom: 15px;
     }
+    #sliderh1 {
+        text-align: left;
+        color: white;
+        font-weight: 600;
+        padding-left: 0;
+        font-size: 32px;
+        text-align: center;
+    }
+    #intro p {
+        width: 100%;
+        margin: 0 auto 30px auto;
+        color: #fff;
+        font-size: 14px;
+        text-align: center;
+    }
     .faq_img img {
         width: 420px;
         display: block;
@@ -2577,12 +2704,18 @@ body.mobile-nav-active #mobile-nav-toggle {
         margin-top: 30px;
         text-align: center;
     }
+    #sliderbtngrp {
+        display: none !important;
+    }
     .nav-menu ul {
         position: absolute;
         display: none;
         top: 100%;
         left: 0 !important;
         z-index: 99;
+    }
+    #scrcimg {
+        display: none;
     }
 
 }
@@ -2604,6 +2737,12 @@ body.mobile-nav-active #mobile-nav-toggle {
     #faeh3 {
         margin-top: 30px;
         text-align: center;
+    }
+    #scrcimg {
+        display: none;
+    }
+    #sliderbtngrp {
+        display: none !important;
     }
 
 }
@@ -2918,7 +3057,7 @@ body.mobile-nav-active #mobile-nav-toggle {
     #intro {
         display: table;
         width: 100%;
-        padding: 9rem 0;
+        padding: 8rem 0 3rem;
     }
 }
 

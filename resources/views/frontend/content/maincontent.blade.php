@@ -1,9 +1,5 @@
 @php
-$services = DB::table('services')
-            ->join('service_categories', 'service_categories.id', 'services.category_id' )
-            ->select('services.thumbnail', 'services.status', 'service_categories.slug')
-            ->where('services.status', 1)
-            ->get();
+    $services = App\Models\ServiceCategory::where('status', 1)->take(12)->get();
 @endphp
 
 @extends('frontend.master')
@@ -11,7 +7,7 @@ $services = DB::table('services')
 @section('maincontent')
 @section('meta')
      <!-- HTML Meta Tags -->
-     <title>Professional Painting Service» Bangladesh's No.1 Painting Company || Deyal</title>
+     <title>Renovation service in singapore || Deyal</title>
      <meta name="description" content="Top Rated Painting Service with a hassle-free experience. 755+ Projects planned and executed across Bangladesh, Best Wall Painters, with Super Fast Painting Service">
 
      <!-- Google / Search Engine Tags -->
@@ -58,9 +54,9 @@ $services = DB::table('services')
                     </div>
 
                     <div class="col-lg-4">
-                        <div class="card" style="background: #1E4651;border-radius: 20px;color: white;">
+                        <div class="card pc_appointment" style="background: #1E4651;border-radius: 20px;color: white;">
                             <div class="card-body">
-                                <h4 id="sliderh4">Book A Free Site Visit </h4>
+                                <h4 id="sliderh4">Book Your Service</h4>
                                 <form  name="form" action="{{route('administrator.appointments.store')}}"  method="POST">
                                     @csrf
 
@@ -71,7 +67,10 @@ $services = DB::table('services')
                                         <select name="service_cat" style="border-radius: 30px;" class="form-control mb-2" id="service_cat">
                                                 <option value="" disabled selected>Select Service</option>
                                               @foreach ( App\Models\ServiceCategory::where('status', 1)->get() as $item )
-                                                <option value="{{ $item->id }}" >{{ $item->title }}</option>
+                                                <option disabled style="color: black; font-weight: 700;">{{ $item->title }}</option>
+                                                   @foreach ( App\Models\Service::where('category_id', $item->id)->get() as $row )
+                                                       <option value="{{ $row->id }}" >--- {{ $row->title }}</option>
+                                                   @endforeach
                                               @endforeach
                                         </select>
 
@@ -117,16 +116,41 @@ $services = DB::table('services')
                 @empty
                 @endforelse --}}
 
-                <div class="all_service_container">
-                    @foreach( $services as $item )
-                        <div class="service_show">
-                           <a href="{{ route('services.category', $item->slug) }}">
-                               <img src="{{ asset($item->thumbnail) }}" alt="" style="width: 100%">
-                           </a>
-                        </div>
-                   @endforeach
-                </div>
+               <div class="col-lg-12">
+                    <div class="all_service_container">
+                        @foreach( $services as $row )
+                            <div class="service_show">
+                                <a href="{{ route('services.category', $row->slug) }}">
+                                    <img src="{{ asset($row->image) }}" alt="">
+                                </a>
 
+                                <h4>
+                                    <a href="{{ route('services.category', $row->slug) }}">
+                                        {{ $row->title }}
+                                    </a>
+                                </h4>
+                            </div>
+                        @endforeach
+                    </div>
+
+                    <div class="carousel_service_container">
+                        <div class="owl-carousel owl-theme">
+                            @foreach( $services as $row )
+                                <div class="service_show">
+                                    <a href="{{ route('services.category', $row->slug) }}">
+                                        <img src="{{ asset($row->image) }}" alt="">
+                                    </a>
+
+                                    <h4>
+                                        <a href="{{ route('services.category', $row->slug) }}">
+                                            {{ $row->title }}
+                                        </a>
+                                    </h4>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+               </div>
             </div>
         </div>
     </section>
@@ -134,15 +158,17 @@ $services = DB::table('services')
     {{--  About Us  --}}
     <section id="clients" class="wow fadeInUp" style="background-color: #f8fbfb;">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-5 col-12">
+            <div class="row align-items-center">
+                <div class="col-lg-5 col-12 order-lg-1 order-2 order-md-2">
                     <div class="about_img">
                         <img src="{{ asset($aboutUs->aboutUs_sideImg) }}">
                     </div>
                 </div>
-                <div class="col-lg-1">
-                </div>
-                <div class="col-lg-6 col-12">
+
+                {{-- <div class="col-lg-1">
+                </div> --}}
+
+                <div class="col-lg-6 col-12 offset-lg-1 order-lg-2 order-1 order-md-1">
                     <h2 class="pt-3" id="whoh1">{{$aboutUs->aboutUs_title1}}</h2>
                     <p id="whop1">{{ $aboutUs->aboutUs_title2 }}</p>
                     <p id="whop2">{{ $aboutUs->aboutUs_desc }}</p>
@@ -353,38 +379,42 @@ $services = DB::table('services')
                     <!-- Modal -->
                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="card" style="background: #1E4651; color: white;">
-                                <div class="card-body">
-                                    <h4 id="sliderh4">Book A Free Site Visit </h4>
-                                    <form  name="form" action="{{route('administrator.appointments.store')}}"  method="POST">
-                                        @csrf
+                            <div class="modal-content">
+                                <div class="card" style="background: #1E4651; color: white;">
+                                    <div class="card-body">
+                                        <h4 id="sliderh4">Book Your Service</h4>
+                                        <form  name="form" action="{{route('administrator.appointments.store')}}"  method="POST">
+                                            @csrf
 
-                                        <div class="form-group">
-                                            <input type="text" name="name" id="name" placeholder="Name" class="form-control mb-2" style="border-radius: 30px;" required />
-                                            <input type="text" name="phone" id="phone" placeholder="Phone" class="form-control mb-2" style="border-radius: 30px;" />
-                                            {{-- <input type="text" name="email" id="email" placeholder="Email" class="form-control mb-2" style="border-radius: 30px;" /> --}}
-                                            <select name="service_cat" style="border-radius: 30px;" class="form-control mb-2" id="service_cat">
-                                                    <option value="" disabled selected>Select Service</option>
-                                                  @foreach ( App\Models\ServiceCategory::where('status', 1)->get() as $item )
-                                                    <option value="{{ $item->id }}" >{{ $item->title }}</option>
-                                                  @endforeach
-                                            </select>
+                                            <div class="form-group">
+                                                <input type="text" name="name" id="name" placeholder="Name" class="form-control mb-2" style="border-radius: 30px;" required />
+                                                <input type="text" name="phone" id="phone" placeholder="Phone" class="form-control mb-2" style="border-radius: 30px;" />
+                                                {{-- <input type="text" name="email" id="email" placeholder="Email" class="form-control mb-2" style="border-radius: 30px;" /> --}}
+                                                <select name="service_cat" style="border-radius: 30px;" class="form-control mb-2" id="service_cat">
+                                                        <option value="" disabled selected>Select Service</option>
+                                                      @foreach ( App\Models\ServiceCategory::where('status', 1)->get() as $item )
+                                                        <option value="{{ $item->id }}" >{{ $item->title }}</option>
+                                                      @endforeach
+                                                </select>
 
-                                            <select name="location" id="country" class="form-control mb-2" style="border-radius: 30px;" >
-                                                <!--<option value="Bangladesh">Bangladesh</option>-->
-                                                <option value="Singapore">Singapore</option>
-                                            </select>
-                                            <div class="check mb-2">
-                                                <input type="checkbox" name="notification" id="agree" class="mb-2" /> Yes, I would like to receive important updates and notifications on WhatsApp
+                                                <select name="location" id="country" class="form-control mb-2" style="border-radius: 30px;" >
+                                                    <!--<option value="Bangladesh">Bangladesh</option>-->
+                                                    <option value="Singapore">Singapore</option>
+                                                </select>
+                                                <div class="check mb-2">
+                                                    <input type="checkbox" name="notification" id="agree" class="mb-2" /> Yes, I would like to receive important updates and notifications on WhatsApp
+                                                </div>
+                                                <button type="submit"  class="btn btn-get-started scrollto" style="background:#FF7D44;color: white;font-weight: bold;  border: 2px solid #FF7D44; padding: 2px 6px;">Book an Appointment</button>
                                             </div>
-                                            <button type="submit"  class="btn btn-get-started scrollto" style="background:#FF7D44;color: white;font-weight: bold;  border: 2px solid #FF7D44; padding: 2px 6px;">Book an Appointment</button>
-                                        </div>
-                                    </form>
+                                        </form>
 
+                                    </div>
+                                </div>
+
+                                <div class="modal_close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
                                 </div>
                             </div>
-                        </div>
                         </div>
                     </div>
                 </div>
@@ -507,14 +537,17 @@ $services = DB::table('services')
                                     </div>
                                     {{-- <input type="text" name="email" id="email" placeholder="Email" class="form-control mb-2" style="border-radius: 30px;"> --}}
                                     {{-- <div class="d-flex"> --}}
-                                        <select name="service_cat" class="form-control mb-2 mr-4" style="border-radius: 30px;" required>
-                                            <option disabled selected>Service</option>
-                                            @forelse (App\Models\ServiceCategory::where('status', 1)->get() as $service)
-                                                <option value="{{ $service->id }}">{{ $service->title }}</option>
-                                            @empty
-                                            @endforelse
 
+                                        <select name="service_cat" style="border-radius: 30px;" class="form-control mb-2" id="service_cat">
+                                                <option value="" disabled selected>Select Service</option>
+                                            @foreach ( App\Models\ServiceCategory::where('status', 1)->get() as $item )
+                                                <option disabled style="color: black; font-weight: 700;">{{ $item->title }}</option>
+                                                @foreach ( App\Models\Service::where('category_id', $item->id)->get() as $row )
+                                                    <option value="{{ $row->id }}" >--- {{ $row->title }}</option>
+                                                @endforeach
+                                            @endforeach
                                         </select>
+
                                         <select name="location" id="country" class="form-control mb-2" style="border-radius: 30px;">
                                             <option value="" disabled selected>Location</option>
                                             <option value="singapore">Singapore</option>
@@ -544,6 +577,28 @@ $services = DB::table('services')
 <script>
     $(document).ready(function(){
         $('.carousel-item:first-child').addClass('active');
+
+
+        $('.owl-carousel').owlCarousel({
+            loop:true,
+            margin:10,
+            nav:false,
+            autoplay: true,
+            autoplayTimeout: 3000,
+            autoplayHoverPause: true,
+            smartSpeed: 250,
+            responsive:{
+                0:{
+                    items: 3
+                },
+                769:{
+                    items: 4
+                },
+                1000:{
+                    items: 5
+                }
+            }
+        })
     });
 </script>
 

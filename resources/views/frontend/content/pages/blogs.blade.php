@@ -7,7 +7,7 @@
 @section('maincontent')
     @section('meta')
          <!-- HTML Meta Tags -->
-         <title>Professional Painting Service» Bangladesh's No.1 Painting Company || Deyal</title>
+         <title>Renovation service in singapore || Deyal</title>
          <meta name="description" content="Top Rated Painting Service with a hassle-free experience. 755+ Projects planned and executed across Bangladesh, Best Wall Painters, with Super Fast Painting Service">
 
          <!-- Google / Search Engine Tags -->

@@ -48,7 +48,7 @@
                             <th>Main Image</th>
                             <th>Thumbnail</th>
                             <th>Icon Image</th>
-                            <th>Description</th>
+                            {{-- <th>Description</th> --}}
                             <th>status</th>
                             <th>Action</th>
                         </tr>
@@ -141,7 +141,7 @@
                     <form name="form" id="updateForm" enctype="multipart/form-data">
                         @csrf
                         @method("PUT")
-                        
+
                         <input type="text" name="id" id="up_id" hidden>
 
                         <div class="form-floating mb-3">
@@ -232,9 +232,9 @@
                 {
                     data: 'icon_img'
                 },
-                {
-                    data: 'description'
-                },
+                // {
+                //     data: 'description'
+                // },
                 {
                     data: 'status'
                 },
@@ -268,7 +268,7 @@
                             buttons: "Thanks",
                         });
                     } else {
-                        
+
                         Swal.fire({
                             title: "Success!",
                             icon: "success",

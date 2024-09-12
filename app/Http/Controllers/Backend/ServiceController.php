@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Service;
 use App\Models\ServiceCategory;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
 
 class ServiceController extends Controller
@@ -77,10 +78,14 @@ class ServiceController extends Controller
 
     public function getData()
     {
-        $services = Service::all();
+        // $services = Service::all();
+        $services = DB::table('services')->leftJoin('service_categories', 'service_categories.id', 'services.category_id')
+                    ->select('services.*', 'service_categories.title as cat_title')
+                    ->get();
+
         return Datatables::of($services)
             ->addColumn('category_id', function ($service) {
-                return '<span class="badge bg-secondary text-white cursor-pointer">'. $service->category_id .'</span>';
+                return '<span class="badge bg-secondary text-white cursor-pointer">'. $service->cat_title .'</span>';
             })
             ->addColumn('main_img', function ($service) {
                 return '<img src="'. asset($service->main_img) .'" alt="" style="width: 65px;">';
@@ -93,9 +98,9 @@ class ServiceController extends Controller
             })
             ->addColumn('status', function ($service) {
                 if ($service->status == 1) {
-                    return '<span class="badge bg-secondary text-white cursor-pointer" id="status_btn" data-id="'.$service->id.'" data-status="'.$service->status.'">Active</span>';
+                    return '<span style="cursor: pointer;" class="badge bg-secondary text-white" id="status_btn" data-id="'.$service->id.'" data-status="'.$service->status.'">Active</span>';
                 } else {
-                    return '<span class="badge bg-danger cursor-pointer" id="status_btn" data-id="'.$service->id.'" data-status="'.$service->status.'">Deactive</span>';
+                    return '<span style="cursor: pointer;" class="badge bg-danger text-white" id="status_btn" data-id="'.$service->id.'" data-status="'.$service->status.'">Deactive</span>';
                 }
             })
             ->addColumn('action', function ($service) {

@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('service_categories', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->text('image');
             $table->string('slug')->unique();
             $table->integer('status')->default(1)->comment('1=active, 0=inactive');
             $table->timestamps();

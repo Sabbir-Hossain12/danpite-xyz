@@ -7,7 +7,7 @@ use App\Http\Controllers\Frontend\BlogController;
 use App\Http\Controllers\WebController;
 use App\Http\Controllers\ProfileController;
 
-use App\Models\Solution;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -20,36 +20,39 @@ use App\Models\Solution;
 |
 */
 
-Route::get('/', function () {
-    $services= Solution::where('status','Active')->get();
-    return view('frontend.content.maincontent',compact('services'));
-});
-Route::get('all-services', [WebController::class, 'allServices']);
-Route::get('interior', [WebController::class, 'interior']);
-Route::get('priceing', [WebController::class, 'priceing']);
-Route::get('contact-us', [WebController::class, 'contact']);
-Route::get('about-us', [WebController::class, 'aboutus']);
-// Route::get('services', [WebController::class, 'services']);
-Route::get('services/{slug}', [WebController::class, 'servicesData'])->name('services.category');
-Route::get('terms-of-service', [WebController::class, 'terms']);
-Route::get('privacy-policy', [WebController::class, 'privacy']);
-
-Route::get('daily-blogs', [WebController::class, 'blogs']);
-Route::post('/blogs/comments', [WebController::class, 'blogComments'])->name('blog.comments');
-Route::post('/blogs/like', [WebController::class, 'blogLike'])->name('blog.like');
-
 Route::post('support-service', [SupportServiceController::class, 'SupportService'])->name('support.service');
 
+Route::controller(WebController::class)->group(function () {
+    Route::get('/', 'home');
+    Route::get('all-services', 'allServices');
+    Route::get('interior', 'interior');
+    Route::get('priceing', 'priceing');
+    Route::get('contact-us', 'contact');
+    Route::get('about-us', 'aboutus');
+    // Route::get('services', [WebController::class, 'services']);
+    Route::get('services/{slug}', 'servicesData')->name('services.category');
+    Route::get('sub-services/{slug}', 'sub_servicesData')->name('services.sub.category');
+    Route::get('terms-of-service', 'terms');
+    Route::get('privacy-policy', 'privacy');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('daily-blogs', 'blogs');
+    Route::post('/blogs/comments', 'blogComments')->name('blog.comments');
+    Route::post('/blogs/like', 'blogLike')->name('blog.like');
 });
+
+
+
+
+
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
+
+// Route::middleware('auth')->group(function () {
+//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+// });
 
 //Route::get('/aboutUs-data', [AboutUsController::class, 'aboutData'])->name('administrator.aboutUs.data');
 

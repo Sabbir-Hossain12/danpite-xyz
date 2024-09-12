@@ -39,11 +39,13 @@
                     <thead class="thead-light">
                         <tr>
                             <th>SL</th>
+                            <th>Image</th>
                             <th>Title</th>
                             <th>status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
+
                     <tbody>
 
                     </tbody>
@@ -68,8 +70,13 @@
                         @csrf
 
                         <div class="form-floating mb-3">
-                            <label for="floatingInput">Title</label>
+                            <label for="title">Title</label>
                             <input type="text" class="form-control" name="title" id="title" placeholder="Title" required>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <label for="Image">Image</label>
+                            <input type="file" class="form-control" name="image" id="Image" placeholder="image" required>
                         </div>
 
                         <div class="form-group mt-2" style="text-align: right">
@@ -102,12 +109,19 @@
                     <form name="form" id="updateForm" enctype="multipart/form-data">
                         @csrf
                         @method("PUT")
-                        
+
                         <input type="text" name="id" id="up_id" hidden>
 
                         <div class="form-floating mb-3">
                             <label for="floatingInput">Title</label>
                             <input type="text" class="form-control" name="title" id="up_title" placeholder="Title" required>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <label for="up_image">Image</label>
+                            <input type="file" class="form-control" name="image" id="up_image" placeholder="image" required>
+
+                            <img id="showImage" class="mt-2" src="" alt="" width="70px"/>
                         </div>
 
                         <br>
@@ -121,9 +135,7 @@
                             </div>
                         </div>
                     </form>
-
                 </div>
-
             </div>
         </div>
     </div><!-- End popup Modal-->
@@ -145,21 +157,13 @@
                     data: 'id'
                 },
                 {
+                    data: 'image'
+                },
+                {
                     data: 'title'
                 },
                 {
-                    "data": null,
-                    render: function(data) {
-
-                        if (data.status == 1) {
-                            return '<span class="btn btn-success btn-sm btn-status" data-status="' + data.status + '" id="status_btn" data-id="' +
-                                data.id + '">Active</span>';
-                        } else {
-                            return '<span class="btn btn-warning btn-sm btn-status" data-status="' + data.status + '" id="status_btn" data-id="' +
-                                data.id + '" >Inactive</span>';
-                        }
-
-                    }
+                    data: 'status'
                 },
                 {
                     data: 'action',
@@ -192,7 +196,7 @@
                             buttons: "Thanks",
                         });
                     } else {
-                        
+
                         Swal.fire({
                             title: "Success!",
                             icon: "success",
@@ -220,6 +224,7 @@
                 success: function(data) {
                     $('#updateForm').find('#up_title').val(data.title);
                     $('#updateForm').find('#up_id').val(data.id);
+                    $('#showImage').attr('src', '{{asset('')}}' + data.image);
                 },
                 error: function(error) {
                     console.log('error');

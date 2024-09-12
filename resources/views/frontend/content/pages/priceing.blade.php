@@ -3,7 +3,7 @@
 @section('maincontent')
     @section('meta')
         <!-- HTML Meta Tags -->
-        <title>Professional Painting Service» Bangladesh's No.1 Painting Company || Deyal</title>
+        <title>Renovation service in singapore || Deyal</title>
         <meta name="description"
               content="Top Rated Painting Service with a hassle-free experience. 755+ Projects planned and executed across Bangladesh, Best Wall Painters, with Super Fast Painting Service">
 
@@ -40,9 +40,9 @@
                     </div>
 
                     <div class="col-lg-4">
-                        <div class="card" style="background: #1E4651;border-radius: 20px;color: white;">
+                        <div class="card pc_appointment" style="background: #1E4651;border-radius: 20px;color: white;">
                             <div class="card-body">
-                                <h4 id="sliderh4">Book A Free Site Visit </h4>
+                                <h4 id="sliderh4">Book Your Service</h4>
                                 <form  name="form" action="{{route('administrator.appointments.store')}}"  method="POST">
                                     @csrf
 
@@ -50,11 +50,15 @@
                                         <input type="text" name="name" id="name" placeholder="Name" class="form-control mb-2" style="border-radius: 30px;" required />
                                         <input type="text" name="phone" id="phone" placeholder="Phone" class="form-control mb-2" style="border-radius: 30px;" />
                                         {{-- <input type="text" name="email" id="email" placeholder="Email" class="form-control mb-2" style="border-radius: 30px;" /> --}}
+
                                         <select name="service_cat" style="border-radius: 30px;" class="form-control mb-2" id="service_cat">
-                                                <option value="" disabled selected>Select Service</option>
-                                              @foreach ( App\Models\ServiceCategory::where('status', 1)->get() as $item )
-                                                <option value="{{ $item->id }}" >{{ $item->title }}</option>
-                                              @endforeach
+                                            <option value="" disabled selected>Select Service</option>
+                                            @foreach ( App\Models\ServiceCategory::where('status', 1)->get() as $item )
+                                                <option disabled style="color: black; font-weight: 700;">{{ $item->title }}</option>
+                                                @foreach ( App\Models\Service::where('category_id', $item->id)->get() as $row )
+                                                    <option value="{{ $row->id }}" >--- {{ $row->title }}</option>
+                                                @endforeach
+                                            @endforeach
                                         </select>
 
                                         <select name="location" id="country" class="form-control mb-2" style="border-radius: 30px;" >
@@ -80,8 +84,9 @@
     <!-- #intro -->
 
     <main id="main">
-        <img src="{{ asset('public/scrs.png') }}" alt="" id="scrcimg">
-        <section id="services" style="z-index: 9999;position: relative;">
+        <img src="{{ asset('public/scrs.png') }}" alt="" id="scrcimg" class="image_cloud">
+
+        <section id="services" style="z-index: 99;position: relative;">
             <div class="container">
 
                 <div class="row mt-4 pt-lg-4">
@@ -212,14 +217,16 @@
                                     </div>
                                     {{-- <input type="text" name="email" id="email" placeholder="Email" class="form-control mb-2" style="border-radius: 30px;"> --}}
                                     {{-- <div class="d-flex"> --}}
-                                        <select name="service_cat" class="form-control mb-2 mr-4" style="border-radius: 30px;" required>
-                                            <option disabled selected>Service</option>
-                                            @forelse (App\Models\ServiceCategory::where('status', 1)->get() as $service)
-                                                <option value="{{ $service->id }}">{{ $service->title }}</option>
-                                            @empty
-                                            @endforelse
-
+                                        <select name="service_cat" style="border-radius: 30px;" class="form-control mb-2" id="service_cat">
+                                            <option value="" disabled selected>Select Service</option>
+                                            @foreach ( App\Models\ServiceCategory::where('status', 1)->get() as $item )
+                                                <option disabled style="color: black; font-weight: 700;">{{ $item->title }}</option>
+                                                @foreach ( App\Models\Service::where('category_id', $item->id)->get() as $row )
+                                                    <option value="{{ $row->id }}" >--- {{ $row->title }}</option>
+                                                @endforeach
+                                            @endforeach
                                         </select>
+
                                         <select name="location" id="country" class="form-control mb-2" style="border-radius: 30px;">
                                             <option value="" disabled selected>Location</option>
                                             <option value="singapore">Singapore</option>

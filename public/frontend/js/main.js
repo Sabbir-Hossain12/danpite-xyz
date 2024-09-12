@@ -44,7 +44,7 @@ function activateNavbar() {
     new WOW().init();
 
 
-    let hamburger_menu      = document.querySelector('.hamburger_menu');
+    let hamburger_menu      = document.querySelector('.hamburger_menu .bx-menu-alt-right');
     let drawer_close        = document.querySelector('.drawer_close');
     let nav_menu_container  = document.querySelector('.nav-menu-container');
 

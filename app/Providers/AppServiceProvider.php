@@ -43,10 +43,14 @@ class AppServiceProvider extends ServiceProvider
         View()->composer('*', function ($view) {
             $sliders = Slider::where('status', 'Active')->get();
             $setting = Websetting::first();
+            $banner= Banner::where('status',1)->first();
+            $faq_consult_img= FaqImage::first();
 
             $view->with([
                 'sliders' => $sliders,
                 'setting'=>$setting,
+                'banner'=>$banner,
+                'faq_consult_img'=>$faq_consult_img
             ]);
         });
 

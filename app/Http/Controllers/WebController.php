@@ -7,6 +7,7 @@ use App\Models\BlogComment;
 use App\Models\LikeSegment;
 use App\Models\Service;
 use App\Models\ServiceCategory;
+use App\Models\Solution;
 use Illuminate\Support\Facades\DB;
 
 class WebController extends Controller
@@ -16,9 +17,10 @@ class WebController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function home()
     {
-        //
+        $services= Solution::where('status','Active')->get();
+        return view('frontend.content.maincontent', compact('services'));
     }
 
     /**
@@ -127,11 +129,19 @@ class WebController extends Controller
     {
         return view('frontend.content.pages.privacy');
     }
+
     public function servicesData(Request $request, $slug)
     {
         // dd($id);
         $ServiceCategory = ServiceCategory::where('slug', $slug)->where('status', 1)->first();
         return view('frontend.content.pages.service.allservices', compact('ServiceCategory'));
+    }
+
+    public function sub_servicesData(Request $request, $slug)
+    {
+        // dd($slug);
+        $service = Service::where('slug', $slug)->first();
+        return view('frontend.content.pages.service.subCategoryService', compact('service'));
     }
 
     public function blogs()
